@@ -1,14 +1,14 @@
 {
   "name": "KMT",
   "colors": {
-    "primary": "#C9993B",
+    "primary": "#2E5A5C",
     "secondary": "#2E5A5C",
-    "accent": "#2E5A5C",
+    "accent": "#C9993B",
     "background": "#F4EEE3",
     "text": "#16130F",
     "muted": "#5E574D",
     "border": "#D8CFBD",
-    "onPrimary": "#16130F"
+    "onPrimary": "#F4EEE3"
   },
   "typography": {
     "heading": "Space Grotesk",

@@ -1,14 +1,14 @@
 {
   "name": "KMT — sombre",
   "colors": {
-    "primary": "#C9993B",
+    "primary": "#2E5A5C",
     "secondary": "#2E5A5C",
-    "accent": "#2E5A5C",
+    "accent": "#C9993B",
     "background": "#16130F",
     "text": "#F4EEE3",
     "muted": "#9A9081",
     "border": "#433D35",
-    "onPrimary": "#16130F"
+    "onPrimary": "#F4EEE3"
   },
   "typography": {
     "heading": "Space Grotesk",

@@ -159,9 +159,10 @@ export default kmt
 {
   const mk = (th, name) => ({
     name, colors: {
-      primary: primitives.brand['or-solaire'], secondary: primitives.brand.nil, accent: primitives.brand.nil,
+      // Nil en principale (boutons, liens), or en accent : l'or reste réservé au module actif.
+      primary: primitives.brand.nil, secondary: primitives.brand.nil, accent: primitives.brand['or-solaire'],
       background: th['bg-page'], text: th['text-primary'], muted: th['text-muted'], border: th['border-default'].startsWith('#') ? th['border-default'] : primitives.neutre['700'],
-      onPrimary: primitives.brand['noir-kmt'],
+      onPrimary: primitives.brand.papyrus,
     },
     typography: { heading: 'Space Grotesk', body: 'Manrope', mono: 'JetBrains Mono' },
     radius: T.radius, logo: '/brand/kmt-lockup-sur-clair.svg',
