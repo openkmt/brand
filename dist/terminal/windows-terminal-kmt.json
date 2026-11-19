@@ -1,0 +1,23 @@
+{
+  "name": "KMT",
+  "background": "#16130F",
+  "foreground": "#F4EEE3",
+  "cursorColor": "#C9993B",
+  "selectionBackground": "#4A3B1E",
+  "black": "#16130F",
+  "red": "#E8826B",
+  "green": "#7DBE8A",
+  "yellow": "#DDB561",
+  "blue": "#6B9C9C",
+  "purple": "#B98AA6",
+  "cyan": "#9CBFBE",
+  "white": "#D8CFBD",
+  "brightBlack": "#5E574D",
+  "brightRed": "#F0A08D",
+  "brightGreen": "#9FD3AA",
+  "brightYellow": "#EBCF8E",
+  "brightBlue": "#9CBFBE",
+  "brightPurple": "#D3AEC2",
+  "brightCyan": "#CCDEDD",
+  "brightWhite": "#F4EEE3"
+}

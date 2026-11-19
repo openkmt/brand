@@ -1,0 +1,30 @@
+{
+  "name": "@kmt/design-system",
+  "version": "1.0.0",
+  "description": "Design system KMT — tokens, composants UI, logos, documents officiels. Source unique : tokens/tokens.json.",
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "dist",
+    "ui",
+    "fonts",
+    "logo",
+    "tokens"
+  ],
+  "exports": {
+    ".": "./dist/js/kmt-tokens.mjs",
+    "./tokens.json": "./dist/js/kmt-tokens.json",
+    "./css": "./dist/css/kmt-tokens.css",
+    "./ui.css": "./ui/kmt-ui.css",
+    "./fonts.css": "./fonts/kmt-fonts.css",
+    "./tailwind": "./dist/tailwind/kmt-preset.cjs",
+    "./tailwind.css": "./dist/tailwind/kmt-theme.css",
+    "./cli": "./dist/terminal/kmt-cli.mjs",
+    "./edms-theme.json": "./dist/edms/theme.json",
+    "./logo/*": "./logo/*"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:docs": "python3 scripts/build_docs.py"
+  }
+}

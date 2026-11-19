@@ -1,0 +1,32 @@
+# GÉNÉRÉ par scripts/build.mjs depuis tokens/tokens.json — ne pas éditer à la main.
+[colors.primary]
+background = "#16130F"
+foreground = "#F4EEE3"
+
+[colors.cursor]
+cursor = "#C9993B"
+text = "#16130F"
+
+[colors.selection]
+background = "#4A3B1E"
+text = "#F4EEE3"
+
+[colors.normal]
+black = "#16130F"
+red = "#E8826B"
+green = "#7DBE8A"
+yellow = "#DDB561"
+blue = "#6B9C9C"
+magenta = "#B98AA6"
+cyan = "#9CBFBE"
+white = "#D8CFBD"
+
+[colors.bright]
+black = "#5E574D"
+red = "#F0A08D"
+green = "#9FD3AA"
+yellow = "#EBCF8E"
+blue = "#9CBFBE"
+magenta = "#D3AEC2"
+cyan = "#CCDEDD"
+white = "#F4EEE3"

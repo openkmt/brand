@@ -1,0 +1,363 @@
+/* ==========================================================================
+   KMT UI — « La grammaire des blocs »
+   Dépend de : dist/css/kmt-tokens.css (+ fonts/kmt-fonts.css)
+   Préfixe : .kmt-   ·   Thèmes : data-theme="clair" | "sombre" | "auto"
+
+   L'interface parle la langue du symbole : une colonne et des modules.
+   1. BLOCS      — des rectangles à peine adoucis (3 · 6 · 10 px). Jamais de pilule.
+   2. MODULES    — une action, un statut, une icône se détachent en petit bloc
+                   à côté de leur contenu, séparés par le JOINT (3 px).
+   3. JOINT      — l'écart du symbole. Il découpe boutons, onglets, lignes,
+                   jauges. Au survol, il s'ouvre : le module se détache.
+   4. SANS TRAITS — ni cadres, ni filets, ni soulignés, ni liserés.
+   5. L'OR       — rare : il marque le module actif, jamais une surface entière.
+   ========================================================================== */
+
+/* ---------- Base ---------------------------------------------------------- */
+.kmt, .kmt *, .kmt *::before, .kmt *::after { box-sizing: border-box; }
+.kmt {
+  font-family: var(--kmt-font-body); font-size: var(--kmt-text-md); line-height: var(--kmt-leading-normal);
+  color: var(--kmt-text-primary); background: var(--kmt-bg-page);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  --_snap: cubic-bezier(0.3, 0, 0, 1.4);   /* mouvement « qui s'emboîte » */
+}
+.kmt :focus-visible { outline: none; box-shadow: 0 0 0 var(--kmt-joint) var(--kmt-bg-page), 0 0 0 calc(var(--kmt-joint) * 2) var(--kmt-focus-ring); border-radius: var(--kmt-radius-md); }
+.kmt ::selection { background: var(--kmt-or-200); color: var(--kmt-neutre-950); }
+
+/* ---------- Typographie ---------------------------------------------------- */
+.kmt-display { font: 700 var(--kmt-text-5xl)/1.02 var(--kmt-font-display); letter-spacing: -0.03em; margin: 0; }
+.kmt-h1 { font: 700 var(--kmt-text-3xl)/1.1 var(--kmt-font-display); letter-spacing: -0.02em; margin: 0; }
+.kmt-h2 { font: 700 var(--kmt-text-2xl)/1.2 var(--kmt-font-display); letter-spacing: -0.015em; margin: 0; }
+.kmt-h3 { font: 600 var(--kmt-text-xl)/1.3 var(--kmt-font-display); letter-spacing: -0.01em; margin: 0; }
+.kmt-lead { font-size: var(--kmt-text-lg); line-height: var(--kmt-leading-relaxed); color: var(--kmt-text-secondary); margin: 0; }
+.kmt-text { font-size: var(--kmt-text-md); color: var(--kmt-text-secondary); margin: 0; }
+.kmt-caption { font-size: var(--kmt-text-xs); font-weight: 500; color: var(--kmt-text-muted); }
+.kmt-label { font: 500 var(--kmt-text-2xs)/1.2 var(--kmt-font-mono); letter-spacing: var(--kmt-tracking-label); text-transform: uppercase; color: var(--kmt-text-muted); }
+/* Eyebrow : précédé du module or — la marque minimale de KMT. */
+.kmt-eyebrow { display: inline-flex; align-items: center; gap: 8px; font: 500 var(--kmt-text-2xs)/1.2 var(--kmt-font-mono); letter-spacing: var(--kmt-tracking-label); text-transform: uppercase; color: var(--kmt-text-gold); }
+.kmt-eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 1.5px; background: var(--kmt-or-500); flex: none; }
+/* Index : la numérotation mono « 01 » des sections, cartes, étapes. */
+.kmt-index { font: 500 var(--kmt-text-xs)/1 var(--kmt-font-mono); color: var(--kmt-text-muted); font-variant-numeric: tabular-nums; letter-spacing: .04em; }
+.kmt-gold { color: var(--kmt-text-gold); }
+.kmt-data { font: 500 var(--kmt-text-md)/1.3 var(--kmt-font-mono); font-variant-numeric: tabular-nums; }
+.kmt-link { color: var(--kmt-text-link); font-weight: 600; text-decoration: none; transition: color var(--kmt-duration-fast); }
+.kmt-link:hover { color: var(--kmt-text-primary); }
+.kmt-code, .kmt kbd { font: 400 0.92em/1 var(--kmt-font-mono); background: var(--kmt-bg-field); padding: 3px 6px; border-radius: var(--kmt-radius-sm); color: var(--kmt-text-primary); }
+.kmt kbd { font-size: var(--kmt-text-xs); color: var(--kmt-text-muted); }
+
+/* ---------- Boutons : un bloc + un module ---------------------------------
+   <button class="kmt-btn"><span>Déployer Zeno</span><i>[icône]</i></button>
+   Le libellé et le module sont deux blocs séparés par le joint. Au survol,
+   le joint s'ouvre et le module glisse : il se détache, comme dans le symbole.
+   Sans <i>, le bouton est un bloc simple.                                    */
+.kmt-btn {
+  --_bg: var(--kmt-action-primary); --_fg: var(--kmt-on-action-primary); --_bg-h: var(--kmt-action-primary-hover);
+  --_mbg: var(--kmt-or-500); --_mfg: var(--kmt-neutre-950);
+  --_h: 40px;
+  display: inline-flex; align-items: stretch; gap: var(--kmt-joint); height: var(--_h); padding: 0; border: 0; background: none;
+  font: 600 var(--kmt-text-md)/1 var(--kmt-font-body); letter-spacing: -0.005em; white-space: nowrap; color: var(--_fg);
+  cursor: pointer; text-decoration: none; transition: gap var(--kmt-duration-base) var(--_snap);
+}
+.kmt-btn > span, .kmt-btn > i {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--kmt-space-2);
+  background: var(--_bg); color: var(--_fg); border-radius: var(--kmt-radius-md);
+  transition: background var(--kmt-duration-fast), transform var(--kmt-duration-base) var(--_snap);
+}
+.kmt-btn > span { padding: 0 18px; }
+.kmt-btn > i { width: var(--_h); font-style: normal; background: var(--_mbg); color: var(--_mfg); }
+.kmt-btn:not(:has(> span)) { background: var(--_bg); border-radius: var(--kmt-radius-md); padding: 0 18px; align-items: center; gap: var(--kmt-space-2); }
+.kmt-btn:hover { gap: calc(var(--kmt-joint) * 2.5); }
+.kmt-btn:hover > span, .kmt-btn:not(:has(> span)):hover { background: var(--_bg-h); }
+.kmt-btn:active > span, .kmt-btn:active > i { transform: translateY(1px); }
+.kmt-btn[disabled], .kmt-btn[aria-disabled="true"] { opacity: .4; cursor: not-allowed; gap: var(--kmt-joint); }
+.kmt-btn svg { width: 18px; height: 18px; stroke-width: 1.5; flex: none; }
+/* Variantes */
+.kmt-btn--brand     { --_bg: var(--kmt-action-brand); --_fg: var(--kmt-on-action-brand); --_bg-h: var(--kmt-action-brand-hover); --_mbg: var(--kmt-neutre-950); --_mfg: var(--kmt-or-500); }
+.kmt-btn--secondary { --_bg: var(--kmt-bg-field); --_fg: var(--kmt-text-primary); --_bg-h: var(--kmt-bg-field-hover); --_mbg: var(--kmt-bg-field); --_mfg: var(--kmt-text-primary); }
+.kmt-btn--ghost     { --_bg: transparent; --_fg: var(--kmt-text-primary); --_bg-h: var(--kmt-bg-field); --_mbg: var(--kmt-bg-field); --_mfg: var(--kmt-text-primary); }
+.kmt-btn--danger    { --_bg: var(--kmt-danger); --_fg: var(--kmt-neutre-0); --_bg-h: var(--kmt-terre-700); --_mbg: var(--kmt-terre-700); --_mfg: var(--kmt-neutre-0); }
+[data-theme="sombre"] .kmt-btn--danger, [data-theme="dark"] .kmt-btn--danger { --_fg: var(--kmt-neutre-950); --_bg-h: var(--kmt-terre-300); --_mbg: var(--kmt-terre-50); --_mfg: var(--kmt-terre-700); }
+[data-theme="sombre"] .kmt-btn, [data-theme="dark"] .kmt-btn { --_mbg: var(--kmt-neutre-50); }
+[data-theme="sombre"] .kmt-btn--brand, [data-theme="dark"] .kmt-btn--brand { --_mbg: var(--kmt-neutre-50); --_mfg: var(--kmt-neutre-950); }
+[data-theme="sombre"] .kmt-btn--secondary, [data-theme="dark"] .kmt-btn--secondary, [data-theme="sombre"] .kmt-btn--ghost, [data-theme="dark"] .kmt-btn--ghost { --_mbg: var(--kmt-bg-field); --_mfg: var(--kmt-text-primary); }
+.kmt-btn--sm { --_h: 32px; font-size: var(--kmt-text-sm); }
+.kmt-btn--sm > span, .kmt-btn--sm:not(:has(> span)) { padding: 0 12px; }
+.kmt-btn--lg { --_h: 52px; font-size: var(--kmt-text-lg); }
+.kmt-btn--lg > span { padding: 0 24px; }
+/* Bouton icône : un module seul */
+.kmt-btn--icon:not(:has(> span)) { width: var(--_h); padding: 0; justify-content: center; }
+.kmt-btn--block { display: flex; width: 100%; }
+.kmt-btn--block > span { flex: 1; justify-content: flex-start; }
+.kmt-btn-group { display: inline-flex; gap: var(--kmt-space-2); flex-wrap: wrap; align-items: center; }
+
+/* ---------- Champs ---------------------------------------------------------
+   Inline : le champ ressemble à du texte. Au focus, un module or s'allume
+   devant le libellé — la seule marque, aucun cadre.                          */
+.kmt-field { display: grid; gap: 6px; }
+.kmt-field__label { display: inline-flex; align-items: center; gap: 8px; font-size: var(--kmt-text-sm); font-weight: 600; color: var(--kmt-text-secondary); transition: color var(--kmt-duration-fast); }
+.kmt-field__label::before, .kmt-inline__label::before { content: ""; width: 0; height: 7px; border-radius: 1.5px; background: var(--kmt-or-500); transition: width var(--kmt-duration-base) var(--_snap); margin-right: -8px; }
+.kmt-field:focus-within .kmt-field__label, .kmt-inline:focus-within .kmt-inline__label { color: var(--kmt-text-primary); }
+.kmt-field:focus-within .kmt-field__label::before, .kmt-inline:focus-within .kmt-inline__label::before { width: 7px; margin-right: 0; }
+.kmt-field__label .kmt-req { color: var(--kmt-text-gold); }
+.kmt-field__hint { font-size: var(--kmt-text-xs); color: var(--kmt-text-muted); }
+.kmt-field__error { font-size: var(--kmt-text-xs); color: var(--kmt-danger); font-weight: 600; }
+.kmt-input, .kmt-select, .kmt-textarea {
+  width: 100%; height: 40px; padding: 0 var(--kmt-space-3);
+  font: 500 var(--kmt-text-md)/1.4 var(--kmt-font-body); color: var(--kmt-text-primary);
+  background: var(--kmt-bg-field); border: 0; border-radius: var(--kmt-radius-md); outline: none;
+  transition: background var(--kmt-duration-fast);
+}
+.kmt-textarea { height: auto; min-height: 96px; padding: var(--kmt-space-3); resize: vertical; line-height: 1.55; }
+.kmt-input::placeholder, .kmt-textarea::placeholder { color: var(--kmt-text-muted); font-weight: 400; }
+.kmt-input:hover, .kmt-select:hover, .kmt-textarea:hover { background: var(--kmt-bg-field-hover); }
+.kmt-input:focus, .kmt-select:focus, .kmt-textarea:focus { background: var(--kmt-bg-card); box-shadow: none; }
+.kmt-input[aria-invalid="true"], .kmt-textarea[aria-invalid="true"] { background: var(--kmt-danger-soft); color: var(--kmt-danger); }
+.kmt-select { appearance: none; padding-right: 36px; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%237A7266' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; }
+/* Champ + module : la recherche, le montant, l'unité */
+.kmt-input-group { display: flex; gap: var(--kmt-joint); align-items: stretch; }
+.kmt-input-group > .kmt-input { flex: 1; }
+.kmt-input-group > .kmt-input-group__mod { display: grid; place-items: center; min-width: 40px; padding: 0 10px; border-radius: var(--kmt-radius-md); background: var(--kmt-bg-field); color: var(--kmt-text-muted); font: 500 var(--kmt-text-xs)/1 var(--kmt-font-mono); }
+.kmt-input-group > .kmt-input-group__mod svg { width: 16px; height: 16px; stroke-width: 1.5; }
+.kmt-input-group:focus-within > .kmt-input-group__mod:first-child { background: var(--kmt-or-500); color: var(--kmt-neutre-950); }
+/* Formulaire inline */
+.kmt-form-inline { display: grid; gap: 2px; }
+.kmt-inline { display: grid; grid-template-columns: minmax(120px, 34%) 1fr; align-items: center; gap: var(--kmt-space-4); min-height: 44px; }
+.kmt-inline__label { display: inline-flex; align-items: center; gap: 8px; font-size: var(--kmt-text-sm); color: var(--kmt-text-muted); font-weight: 500; transition: color var(--kmt-duration-fast); }
+.kmt-inline .kmt-input, .kmt-inline .kmt-select, .kmt-inline .kmt-textarea { background-color: transparent; margin-left: calc(-1 * var(--kmt-space-3)); width: calc(100% + var(--kmt-space-3)); }
+.kmt-inline .kmt-input:hover, .kmt-inline .kmt-select:hover { background-color: var(--kmt-bg-field); }
+.kmt-inline .kmt-input:focus, .kmt-inline .kmt-select:focus { background-color: var(--kmt-bg-field); }
+.kmt-inline .kmt-input[aria-invalid="true"] { background-color: var(--kmt-danger-soft); }
+
+/* Case, radio, interrupteur — des blocs qui s'emboîtent */
+.kmt-check { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: var(--kmt-text-md); }
+.kmt-check input { appearance: none; margin: 0; width: 18px; height: 18px; border: 0; background: var(--kmt-bg-field-hover); border-radius: var(--kmt-radius-sm); display: grid; place-content: center; cursor: pointer; transition: background var(--kmt-duration-fast); }
+.kmt-check input[type="radio"] { border-radius: 50%; }
+.kmt-check input::after { content: ""; width: 0; height: 0; border-radius: 1.5px; background: var(--kmt-or-500); transition: all var(--kmt-duration-base) var(--_snap); }
+.kmt-check input[type="radio"]::after { border-radius: 50%; }
+.kmt-check input:checked { background: var(--kmt-neutre-950); }
+.kmt-check input:checked::after { width: 8px; height: 8px; }
+[data-theme="sombre"] .kmt-check input:checked { background: var(--kmt-neutre-50); }
+.kmt-switch { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
+.kmt-switch input { appearance: none; margin: 0; width: 40px; height: 22px; border-radius: var(--kmt-radius-sm); background: var(--kmt-bg-field-hover); position: relative; cursor: pointer; transition: background var(--kmt-duration-base); }
+.kmt-switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 2px; background: var(--kmt-neutre-0); transition: transform var(--kmt-duration-base) var(--_snap), background var(--kmt-duration-base); }
+.kmt-switch input:checked { background: var(--kmt-neutre-950); }
+.kmt-switch input:checked::after { transform: translateX(18px); background: var(--kmt-or-500); }
+[data-theme="sombre"] .kmt-switch input:checked { background: var(--kmt-neutre-50); }
+
+/* Pavés (segmented / onglets) : des blocs côte à côte, joint entre chacun */
+.kmt-segmented, .kmt-tabs { display: inline-flex; gap: var(--kmt-joint); }
+.kmt-segmented button, .kmt-tabs a, .kmt-tabs button {
+  height: 34px; padding: 0 var(--kmt-space-4); border: 0; border-radius: var(--kmt-radius-md);
+  background: var(--kmt-bg-field); color: var(--kmt-text-secondary); font: 600 var(--kmt-text-sm)/1 var(--kmt-font-body);
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none; cursor: pointer;
+  transition: background var(--kmt-duration-fast), color var(--kmt-duration-fast);
+}
+.kmt-segmented button:hover, .kmt-tabs a:hover, .kmt-tabs button:hover { background: var(--kmt-bg-field-hover); color: var(--kmt-text-primary); }
+.kmt-segmented [aria-pressed="true"], .kmt-tabs [aria-selected="true"], .kmt-tabs [aria-current="page"] { background: var(--kmt-action-primary); color: var(--kmt-on-action-primary); }
+.kmt-tabs .kmt-index { color: inherit; opacity: .55; }
+
+/* ---------- Badges : pastille + module de couleur -------------------------- */
+.kmt-badge {
+  --_c: var(--kmt-neutral); --_s: var(--kmt-neutral-soft);
+  display: inline-flex; align-items: center; gap: 7px; height: 22px; padding: 0 8px; border-radius: var(--kmt-radius-sm);
+  font: 600 var(--kmt-text-xs)/1 var(--kmt-font-body); color: var(--_c); background: var(--_s); white-space: nowrap;
+}
+.kmt-badge--dot::before { content: ""; width: 6px; height: 6px; border-radius: 1.5px; background: currentColor; }
+.kmt-badge--success { --_c: var(--kmt-success); --_s: var(--kmt-success-soft); }
+.kmt-badge--warning { --_c: var(--kmt-warning); --_s: var(--kmt-warning-soft); }
+.kmt-badge--danger  { --_c: var(--kmt-danger);  --_s: var(--kmt-danger-soft); }
+.kmt-badge--info    { --_c: var(--kmt-info);    --_s: var(--kmt-info-soft); }
+.kmt-badge--gold    { --_c: var(--kmt-neutre-950); --_s: var(--kmt-or-500); }
+.kmt-badge--label   { --_c: var(--kmt-text-gold); --_s: var(--kmt-accent-soft); font-family: var(--kmt-font-mono); font-weight: 500; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+/* Étiquette : texte + module de retrait */
+.kmt-tag { display: inline-flex; gap: 2px; height: 26px; font-size: var(--kmt-text-sm); }
+.kmt-tag > span, .kmt-tag > button { display: inline-flex; align-items: center; padding: 0 10px; background: var(--kmt-bg-field); border: 0; border-radius: var(--kmt-radius-sm); color: var(--kmt-text-primary); font: inherit; }
+.kmt-tag > button { padding: 0 8px; color: var(--kmt-text-muted); cursor: pointer; }
+.kmt-tag > button:hover { background: var(--kmt-danger-soft); color: var(--kmt-danger); }
+
+/* ---------- Cartes / tuiles ------------------------------------------------
+   Une tuile s'emboîte : au survol, elle se soulève d'un joint et révèle
+   son bloc d'ombre or, net, sans flou.                                       */
+.kmt-card { position: relative; background: var(--kmt-bg-card); border-radius: var(--kmt-radius-lg); padding: var(--kmt-space-5); }
+.kmt-card--flat { background: var(--kmt-bg-field); }
+.kmt-card--raised { box-shadow: var(--kmt-shadow-raised); }
+.kmt-card--inverse { background: var(--kmt-bg-inverse); color: var(--kmt-text-inverse); }
+.kmt-card--inverse .kmt-text, .kmt-card--inverse .kmt-lead { color: color-mix(in srgb, var(--kmt-text-inverse) 70%, transparent); }
+.kmt-card--inverse .kmt-eyebrow { color: var(--kmt-or-500); }
+.kmt-card--interactive { cursor: pointer; transition: transform var(--kmt-duration-base) var(--_snap), box-shadow var(--kmt-duration-base) var(--_snap); }
+.kmt-card--interactive:hover { transform: translate(-4px, -4px); box-shadow: 4px 4px 0 0 var(--kmt-or-500); }
+.kmt-card__index { position: absolute; top: var(--kmt-space-5); right: var(--kmt-space-5); }
+.kmt-card__header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--kmt-space-4); margin-bottom: var(--kmt-space-3); }
+.kmt-card__title { font: 700 var(--kmt-text-xl)/1.25 var(--kmt-font-display); letter-spacing: -0.01em; margin: 0; }
+.kmt-card__footer { margin-top: var(--kmt-space-6); display: flex; gap: var(--kmt-space-2); justify-content: flex-end; }
+/* Tuile composée : un en-tête-module et un corps, séparés par le joint */
+.kmt-stack-card { display: grid; gap: var(--kmt-joint); }
+.kmt-stack-card > * { background: var(--kmt-bg-card); border-radius: var(--kmt-radius-sm); padding: var(--kmt-space-4) var(--kmt-space-5); }
+.kmt-stack-card > :first-child { border-radius: var(--kmt-radius-lg) var(--kmt-radius-lg) var(--kmt-radius-sm) var(--kmt-radius-sm); }
+.kmt-stack-card > :last-child { border-radius: var(--kmt-radius-sm) var(--kmt-radius-sm) var(--kmt-radius-lg) var(--kmt-radius-lg); }
+
+/* KPI : chiffre + histogramme en blocs */
+.kmt-kpi { display: grid; gap: var(--kmt-space-2); }
+.kmt-kpi__value { font: 600 var(--kmt-text-4xl)/1 var(--kmt-font-display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.kmt-kpi__value--gold { color: var(--kmt-text-gold); }
+.kmt-kpi__delta { font: 500 var(--kmt-text-xs)/1 var(--kmt-font-mono); }
+.kmt-kpi__delta--up { color: var(--kmt-success); }
+.kmt-kpi__delta--down { color: var(--kmt-danger); }
+.kmt-bars { display: flex; align-items: flex-end; gap: var(--kmt-joint); height: 36px; }
+.kmt-bars > i { flex: 1; min-height: 3px; border-radius: 2px; background: var(--kmt-bg-field-hover); }
+.kmt-bars > i:last-child, .kmt-bars > i.is-on { background: var(--kmt-or-500); }
+
+/* ---------- Notices : module de statut + corps (pas de liseré) ------------- */
+.kmt-alert {
+  --_c: var(--kmt-info); --_s: var(--kmt-info-soft);
+  display: grid; grid-template-columns: 44px 1fr auto; gap: var(--kmt-joint); align-items: stretch;
+}
+.kmt-alert > svg { box-sizing: content-box; width: 20px; height: 20px; padding: 12px; border-radius: var(--kmt-radius-md); background: var(--_c); color: var(--kmt-neutre-0); stroke-width: 1.75; align-self: start; }
+[data-theme="sombre"] .kmt-alert > svg { color: var(--kmt-neutre-950); }
+.kmt-alert > div { background: var(--_s); border-radius: var(--kmt-radius-md); padding: 12px var(--kmt-space-4); }
+.kmt-alert > .kmt-btn { align-self: stretch; height: auto; }
+.kmt-alert__title { font-weight: 700; margin: 0 0 2px; color: var(--kmt-text-primary); }
+.kmt-alert__body { margin: 0; color: var(--kmt-text-secondary); font-size: var(--kmt-text-sm); }
+.kmt-alert--success { --_c: var(--kmt-success); --_s: var(--kmt-success-soft); }
+.kmt-alert--warning { --_c: var(--kmt-warning); --_s: var(--kmt-warning-soft); }
+.kmt-alert--danger  { --_c: var(--kmt-danger);  --_s: var(--kmt-danger-soft); }
+/* Toast : même grammaire que le bouton — un bloc noir et son module or */
+.kmt-toast { display: inline-flex; gap: var(--kmt-joint); filter: drop-shadow(0 16px 32px rgba(22,19,15,.22)); font-size: var(--kmt-text-sm); }
+.kmt-toast > svg { box-sizing: content-box; width: 18px; height: 18px; padding: 12px; border-radius: var(--kmt-radius-md); background: var(--kmt-or-500); color: var(--kmt-neutre-950); stroke-width: 1.75; }
+.kmt-toast > span { display: flex; align-items: center; gap: var(--kmt-space-4); padding: 0 var(--kmt-space-4); border-radius: var(--kmt-radius-md); background: var(--kmt-neutre-950); color: var(--kmt-neutre-50); }
+.kmt-toast__action { color: var(--kmt-or-400); font-weight: 700; background: none; border: 0; cursor: pointer; font-size: inherit; padding: 0; }
+
+/* ---------- Navigation ------------------------------------------------------ */
+.kmt-breadcrumb { display: flex; gap: var(--kmt-space-2); align-items: center; font-size: var(--kmt-text-sm); color: var(--kmt-text-muted); list-style: none; padding: 0; margin: 0; }
+.kmt-breadcrumb li + li::before { content: ""; display: inline-block; width: 4px; height: 4px; border-radius: 1px; background: currentColor; opacity: .5; margin-right: var(--kmt-space-2); vertical-align: middle; }
+.kmt-breadcrumb a { color: inherit; text-decoration: none; }
+.kmt-breadcrumb a:hover { color: var(--kmt-text-primary); }
+.kmt-breadcrumb [aria-current] { color: var(--kmt-text-primary); font-weight: 600; }
+.kmt-pagination { display: inline-flex; gap: var(--kmt-joint); }
+.kmt-pagination a, .kmt-pagination span { min-width: 34px; height: 34px; display: grid; place-items: center; border-radius: var(--kmt-radius-md); background: var(--kmt-bg-field); font: 500 var(--kmt-text-sm)/1 var(--kmt-font-mono); color: var(--kmt-text-secondary); text-decoration: none; }
+.kmt-pagination span { background: none; }
+.kmt-pagination a:hover { background: var(--kmt-bg-field-hover); }
+.kmt-pagination [aria-current="page"] { background: var(--kmt-or-500); color: var(--kmt-neutre-950); }
+
+/* Coque d'application (Zeno, EDMS, DevPanel)
+   La barre latérale est la COLONNE du symbole ; chaque entrée est un module.
+   L'entrée active allume son module d'icône en or.                           */
+.kmt-shell { display: grid; grid-template-columns: 232px 1fr; gap: var(--kmt-joint); min-height: 100%; background: var(--kmt-bg-page); }
+.kmt-sidebar { background: var(--kmt-neutre-950); color: var(--kmt-neutre-50); padding: var(--kmt-space-4) var(--kmt-space-3); display: flex; flex-direction: column; gap: 2px; border-radius: 0 var(--kmt-radius-lg) var(--kmt-radius-lg) 0; }
+.kmt-sidebar__brand { display: flex; align-items: center; gap: var(--kmt-space-3); padding: var(--kmt-space-2) var(--kmt-space-2) var(--kmt-space-5); }
+.kmt-sidebar__brand img, .kmt-sidebar__brand svg { height: 22px; width: auto; }
+.kmt-sidebar__brand span { font: 700 var(--kmt-text-lg)/1 var(--kmt-font-display); letter-spacing: -0.01em; }
+.kmt-sidebar__section { font: 500 10px/1 var(--kmt-font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--kmt-neutre-500); padding: var(--kmt-space-5) var(--kmt-space-2) var(--kmt-space-2); }
+.kmt-nav-item { display: flex; align-items: center; gap: var(--kmt-space-3); height: 38px; padding: 0 var(--kmt-space-2) 0 4px; border-radius: var(--kmt-radius-md); color: var(--kmt-neutre-400); text-decoration: none; font-weight: 500; font-size: var(--kmt-text-md); transition: color var(--kmt-duration-fast), background var(--kmt-duration-fast); }
+.kmt-nav-item svg { box-sizing: content-box; width: 16px; height: 16px; padding: 7px; border-radius: var(--kmt-radius-sm); stroke-width: 1.5; transition: background var(--kmt-duration-base) var(--_snap), color var(--kmt-duration-fast); }
+.kmt-nav-item:hover { color: var(--kmt-neutre-50); }
+.kmt-nav-item:hover svg { background: rgba(244, 238, 227, .07); }
+.kmt-nav-item[aria-current="page"] { color: var(--kmt-neutre-50); background: rgba(244, 238, 227, .05); }
+.kmt-nav-item[aria-current="page"] svg { background: var(--kmt-or-500); color: var(--kmt-neutre-950); }
+.kmt-nav-item__count { margin-left: auto; font: 500 11px/1 var(--kmt-font-mono); color: var(--kmt-neutre-500); }
+.kmt-topbar { height: 64px; display: flex; align-items: center; gap: var(--kmt-space-4); padding: 0 var(--kmt-space-6); }
+
+/* ---------- Tableau : chaque ligne est un bloc, le joint fait la grille ---- */
+.kmt-table-wrap { overflow: auto; }
+.kmt-table { width: 100%; border-collapse: separate; border-spacing: 0 var(--kmt-joint); font-size: var(--kmt-text-md); margin: calc(-1 * var(--kmt-joint)) 0; }
+.kmt-table th { text-align: left; font: 500 var(--kmt-text-2xs)/1.2 var(--kmt-font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--kmt-text-muted); padding: var(--kmt-space-2) var(--kmt-space-4); white-space: nowrap; }
+.kmt-table td { padding: 14px var(--kmt-space-4); vertical-align: middle; background: var(--kmt-bg-card); transition: background var(--kmt-duration-fast); }
+.kmt-table td:first-child { border-radius: var(--kmt-radius-md) 0 0 var(--kmt-radius-md); }
+.kmt-table td:last-child { border-radius: 0 var(--kmt-radius-md) var(--kmt-radius-md) 0; }
+.kmt-table tbody tr:hover td { background: var(--kmt-bg-subtle); }
+.kmt-table .kmt-num { text-align: right; font-family: var(--kmt-font-mono); font-variant-numeric: tabular-nums; }
+.kmt-table--on-card td { background: var(--kmt-bg-field); }
+
+/* ---------- Avatar : un bloc, pas un cercle -------------------------------- */
+.kmt-avatar { width: 32px; height: 32px; border-radius: var(--kmt-radius-md); display: inline-grid; place-items: center; background: var(--kmt-or-100); color: var(--kmt-or-800); font: 700 var(--kmt-text-xs)/1 var(--kmt-font-display); overflow: hidden; flex: none; }
+.kmt-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.kmt-avatar--lg { width: 48px; height: 48px; font-size: var(--kmt-text-md); border-radius: var(--kmt-radius-lg); }
+.kmt-avatar--nil { background: var(--kmt-nil-100); color: var(--kmt-nil-700); }
+.kmt-avatar--noir { background: var(--kmt-neutre-950); color: var(--kmt-or-500); }
+.kmt-avatar-stack { display: inline-flex; gap: var(--kmt-joint); }
+
+/* ---------- Jauge en modules ----------------------------------------------- */
+.kmt-progress { --value: 50; --steps: 12; position: relative; height: 10px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--kmt-or-500) calc(var(--value) * 1%), var(--kmt-bg-field-hover) 0);
+  -webkit-mask: repeating-linear-gradient(90deg, #000 0 calc(100% / var(--steps) - var(--kmt-joint)), transparent 0 calc(100% / var(--steps)));
+          mask: repeating-linear-gradient(90deg, #000 0 calc(100% / var(--steps) - var(--kmt-joint)), transparent 0 calc(100% / var(--steps))); }
+.kmt-skeleton { background: var(--kmt-bg-field); border-radius: var(--kmt-radius-sm); animation: kmt-blink 1.4s steps(2, jump-none) infinite; }
+@keyframes kmt-blink { 50% { background: var(--kmt-bg-field-hover); } }
+/* Loader de marque : les blocs du symbole s'allument tour à tour */
+.kmt-loader { display: inline-grid; grid-template-columns: 6px 6px 6px; grid-template-rows: repeat(3, 6px); gap: 3px; }
+.kmt-loader i { background: var(--kmt-or-500); border-radius: 1.5px; animation: kmt-pulse 1.2s var(--kmt-ease-standard) infinite; }
+.kmt-loader i:nth-child(1) { grid-column: 1; grid-row: 1 / 4; animation-delay: 0s; }
+.kmt-loader i:nth-child(2) { grid-column: 3; grid-row: 1; animation-delay: .15s; }
+.kmt-loader i:nth-child(3) { grid-column: 2; grid-row: 2; animation-delay: .3s; }
+.kmt-loader i:nth-child(4) { grid-column: 3; grid-row: 3; animation-delay: .45s; }
+@keyframes kmt-pulse { 0%, 100% { opacity: .25; } 40% { opacity: 1; } }
+/* Étapes : une suite de modules numérotés */
+.kmt-steps { display: flex; gap: var(--kmt-joint); list-style: none; padding: 0; margin: 0; counter-reset: s; }
+.kmt-steps li { flex: 1; counter-increment: s; padding: 10px 12px; border-radius: var(--kmt-radius-sm); background: var(--kmt-bg-field); font-size: var(--kmt-text-sm); color: var(--kmt-text-muted); }
+.kmt-steps li::before { content: counter(s, decimal-leading-zero); display: block; font: 500 var(--kmt-text-2xs)/1 var(--kmt-font-mono); margin-bottom: 6px; }
+.kmt-steps li:first-child { border-radius: var(--kmt-radius-md) var(--kmt-radius-sm) var(--kmt-radius-sm) var(--kmt-radius-md); }
+.kmt-steps li:last-child { border-radius: var(--kmt-radius-sm) var(--kmt-radius-md) var(--kmt-radius-md) var(--kmt-radius-sm); }
+.kmt-steps li.is-done { background: var(--kmt-action-primary); color: var(--kmt-on-action-primary); }
+.kmt-steps li.is-current { background: var(--kmt-or-500); color: var(--kmt-neutre-950); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .kmt *, .kmt *::before, .kmt *::after { animation: none !important; transition: none !important; } }
+
+/* ---------- Surcouches : seules à porter une ombre -------------------------- */
+.kmt-menu { min-width: 230px; padding: var(--kmt-joint); display: grid; gap: 2px; background: var(--kmt-bg-page); border-radius: var(--kmt-radius-lg); box-shadow: var(--kmt-shadow-raised); }
+.kmt-menu__item { display: flex; align-items: center; gap: var(--kmt-space-3); width: 100%; height: 38px; padding: 0 var(--kmt-space-3) 0 4px; border: 0; background: var(--kmt-bg-card); border-radius: var(--kmt-radius-sm); font: 500 var(--kmt-text-md)/1 var(--kmt-font-body); color: var(--kmt-text-primary); cursor: pointer; text-align: left; }
+.kmt-menu__item:first-child { border-top-left-radius: var(--kmt-radius-md); border-top-right-radius: var(--kmt-radius-md); }
+.kmt-menu__item:last-child { border-bottom-left-radius: var(--kmt-radius-md); border-bottom-right-radius: var(--kmt-radius-md); }
+.kmt-menu__item svg { box-sizing: content-box; width: 16px; height: 16px; padding: 7px; border-radius: var(--kmt-radius-sm); stroke-width: 1.5; color: var(--kmt-text-muted); transition: background var(--kmt-duration-fast); }
+.kmt-menu__item:hover svg { background: var(--kmt-or-500); color: var(--kmt-neutre-950); }
+.kmt-menu__item--danger { color: var(--kmt-danger); }
+.kmt-menu__item--danger svg { color: currentColor; }
+.kmt-menu__item--danger:hover svg { background: var(--kmt-danger); color: var(--kmt-neutre-0); }
+.kmt-menu__item kbd { margin-left: auto; background: none; }
+.kmt-menu__sep { height: var(--kmt-joint); }
+.kmt-modal { width: min(520px, 100%); display: grid; gap: var(--kmt-joint); filter: drop-shadow(0 24px 48px rgba(22,19,15,.22)); }
+.kmt-modal > * { background: var(--kmt-bg-card); }
+.kmt-modal__header { padding: var(--kmt-space-5) var(--kmt-space-6) 0; border-radius: var(--kmt-radius-lg) var(--kmt-radius-lg) 0 0; }
+.kmt-modal__body { padding: var(--kmt-space-3) var(--kmt-space-6) var(--kmt-space-6); color: var(--kmt-text-secondary); border-radius: 0 0 var(--kmt-radius-sm) var(--kmt-radius-sm); margin-top: calc(-1 * var(--kmt-joint)); }
+.kmt-modal__footer { display: flex; justify-content: flex-end; gap: var(--kmt-space-2); padding: var(--kmt-space-3) var(--kmt-space-4); border-radius: var(--kmt-radius-sm) var(--kmt-radius-sm) var(--kmt-radius-lg) var(--kmt-radius-lg); background: var(--kmt-bg-subtle); }
+.kmt-scrim { position: fixed; inset: 0; background: var(--kmt-scrim); display: grid; place-items: center; padding: var(--kmt-space-5); z-index: var(--kmt-z-modal); }
+.kmt-tooltip { display: inline-flex; gap: 2px; font-size: var(--kmt-text-xs); font-weight: 500; }
+.kmt-tooltip > span { padding: 6px 10px; background: var(--kmt-neutre-950); color: var(--kmt-neutre-50); border-radius: var(--kmt-radius-sm); }
+.kmt-tooltip > kbd { padding: 6px 8px; background: var(--kmt-or-500) !important; color: var(--kmt-neutre-950) !important; border-radius: var(--kmt-radius-sm); }
+
+/* ---------- États vides : le symbole en attente ------------------------------ */
+.kmt-empty { display: grid; justify-items: center; text-align: center; gap: var(--kmt-space-3); padding: var(--kmt-space-8) var(--kmt-space-5); background: var(--kmt-bg-field); border-radius: var(--kmt-radius-lg); }
+.kmt-empty__icon { display: grid; grid-template-columns: 10px 10px 10px; grid-template-rows: repeat(3, 10px); gap: 4px; margin-bottom: var(--kmt-space-2); }
+.kmt-empty__icon::before, .kmt-empty__icon::after, .kmt-empty__icon > i { content: ""; border-radius: 2px; background: var(--kmt-bg-field-hover); }
+.kmt-empty__icon::before { grid-column: 1; grid-row: 1 / 4; }
+.kmt-empty__icon::after { grid-column: 3; grid-row: 1; background: var(--kmt-or-500); }
+.kmt-empty__icon > i:nth-child(1) { grid-column: 2; grid-row: 2; }
+.kmt-empty__icon > i:nth-child(2) { grid-column: 3; grid-row: 3; }
+
+/* ---------- Bloc code / CLI -------------------------------------------------- */
+.kmt-terminal { display: grid; gap: var(--kmt-joint); font: 400 var(--kmt-text-sm)/1.7 var(--kmt-font-mono); }
+.kmt-terminal > * { background: var(--kmt-neutre-950); color: var(--kmt-neutre-50); }
+.kmt-terminal__bar { display: flex; align-items: center; gap: 6px; padding: 10px 16px; border-radius: var(--kmt-radius-lg) var(--kmt-radius-lg) var(--kmt-radius-sm) var(--kmt-radius-sm); color: var(--kmt-neutre-500); font-size: 11px; letter-spacing: .08em; }
+.kmt-terminal__bar i { width: 8px; height: 8px; border-radius: 1.5px; background: var(--kmt-neutre-800); }
+.kmt-terminal__bar i:first-child { background: var(--kmt-or-500); }
+.kmt-terminal pre { margin: 0; padding: var(--kmt-space-5); overflow-x: auto; border-radius: var(--kmt-radius-sm) var(--kmt-radius-sm) var(--kmt-radius-lg) var(--kmt-radius-lg); }
+.kmt-terminal .p { color: var(--kmt-or-500); }  .kmt-terminal .m { color: var(--kmt-neutre-400); }
+.kmt-terminal .ok { color: var(--kmt-palmier-300); } .kmt-terminal .i { color: var(--kmt-nil-200); } .kmt-terminal .b { font-weight: 600; }
+
+/* ---------- Mise en page ------------------------------------------------------ */
+.kmt-divider { height: var(--kmt-space-6); border: 0; margin: 0; background: none; }
+.kmt-stack { display: flex; flex-direction: column; gap: var(--kmt-space-4); }
+.kmt-row { display: flex; align-items: center; gap: var(--kmt-space-3); flex-wrap: wrap; }
+.kmt-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--kmt-gutter); }
+.kmt-mosaic { display: grid; gap: var(--kmt-joint); }  /* des tuiles collées au joint */
+.kmt-container { max-width: var(--kmt-container); margin: 0 auto; padding: 0 var(--kmt-space-5); }
+.kmt-motif {
+  background-color: var(--kmt-neutre-950);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 146 146'%3E%3Cg fill='%23C9993B' fill-opacity='.07'%3E%3Crect width='36' height='146' rx='7'/%3E%3Crect x='91' width='55' height='36' rx='7'/%3E%3Crect x='51' y='55' width='55' height='36' rx='7'/%3E%3Crect x='91' y='110' width='55' height='36' rx='7'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 72px 72px;
+}
+.kmt-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Thème sombre : la colonne et le terminal se détachent du fond -- */
+[data-theme="sombre"] .kmt-sidebar, [data-theme="dark"] .kmt-sidebar,
+[data-theme="sombre"] .kmt-terminal > *, [data-theme="dark"] .kmt-terminal > * { background: var(--kmt-neutre-850); }

@@ -1,0 +1,19 @@
+{
+  "nom": "KMT",
+  "couleurs": {
+    "primaire": "#c9993b",
+    "sombre": "#16130f",
+    "surSombre": "#f4eee3",
+    "texte": "#16130f",
+    "discret": "#5e574d",
+    "filet": "#d8cfbd",
+    "accent": "#2e5a5c"
+  },
+  "polices": {
+    "titre": "Space Grotesk",
+    "texte": "Manrope"
+  },
+  "accroche": "Fondation open source · Abidjan",
+  "slogan": "Le logiciel libre, construit en Afrique, pour l'Afrique.",
+  "couverture": true
+}

@@ -1,0 +1,316 @@
+{
+  "color": {
+    "brand": {
+      "noir-kmt": "#16130F",
+      "papyrus": "#F4EEE3",
+      "or-solaire": "#C9993B",
+      "nil": "#2E5A5C",
+      "sable": "#D8CFBD"
+    },
+    "neutre": {
+      "0": "#FFFFFF",
+      "25": "#FBF8F2",
+      "50": "#F4EEE3",
+      "100": "#ECE5D7",
+      "200": "#D8CFBD",
+      "300": "#BDB3A0",
+      "400": "#9A9081",
+      "500": "#7A7266",
+      "600": "#5E574D",
+      "700": "#433D35",
+      "800": "#2A2520",
+      "850": "#1F1B16",
+      "900": "#1A1612",
+      "950": "#16130F"
+    },
+    "or": {
+      "50": "#FBF4E4",
+      "100": "#F4E4BF",
+      "200": "#EBCF8E",
+      "300": "#DDB561",
+      "400": "#D2A648",
+      "500": "#C9993B",
+      "600": "#A87D2B",
+      "700": "#866222",
+      "800": "#644A1C",
+      "900": "#453314"
+    },
+    "nil": {
+      "50": "#E8F0EF",
+      "100": "#CCDEDD",
+      "200": "#9CBFBE",
+      "300": "#6B9C9C",
+      "400": "#467A7B",
+      "500": "#2E5A5C",
+      "600": "#254A4C",
+      "700": "#1D3A3B",
+      "800": "#152A2B",
+      "900": "#0E1C1D"
+    },
+    "palmier": {
+      "50": "#E7F2E9",
+      "300": "#7DBE8A",
+      "500": "#3D7A4A",
+      "700": "#2A5534"
+    },
+    "terre": {
+      "50": "#F7E6E1",
+      "300": "#E8826B",
+      "500": "#B2452F",
+      "700": "#7E2F20"
+    }
+  },
+  "theme": {
+    "clair": {
+      "bg-page": "#F4EEE3",
+      "bg-card": "#FFFFFF",
+      "bg-subtle": "#FBF8F2",
+      "bg-muted": "#ECE5D7",
+      "bg-inverse": "#16130F",
+      "bg-field": "rgba(22, 19, 15, 0.045)",
+      "bg-field-hover": "rgba(22, 19, 15, 0.07)",
+      "bg-hover": "rgba(22, 19, 15, 0.035)",
+      "text-primary": "#16130F",
+      "text-secondary": "#433D35",
+      "text-muted": "#5E574D",
+      "text-inverse": "#F4EEE3",
+      "text-link": "#2E5A5C",
+      "text-gold": "#866222",
+      "border-subtle": "rgba(22, 19, 15, 0.08)",
+      "border-default": "#D8CFBD",
+      "border-strong": "#9A9081",
+      "action-primary": "#16130F",
+      "action-primary-hover": "#2A2520",
+      "on-action-primary": "#F4EEE3",
+      "action-brand": "#C9993B",
+      "action-brand-hover": "#D2A648",
+      "on-action-brand": "#16130F",
+      "accent": "#C9993B",
+      "accent-soft": "#FBF4E4",
+      "focus-ring": "#C9993B",
+      "scrim": "rgba(22, 19, 15, 0.45)",
+      "success": "#3D7A4A",
+      "success-soft": "#E7F2E9",
+      "warning": "#866222",
+      "warning-soft": "#FBF4E4",
+      "danger": "#B2452F",
+      "danger-soft": "#F7E6E1",
+      "info": "#2E5A5C",
+      "info-soft": "#E8F0EF",
+      "neutral": "#433D35",
+      "neutral-soft": "#ECE5D7"
+    },
+    "sombre": {
+      "bg-page": "#16130F",
+      "bg-card": "#1F1B16",
+      "bg-subtle": "#1A1612",
+      "bg-muted": "#2A2520",
+      "bg-inverse": "#F4EEE3",
+      "bg-field": "rgba(244, 238, 227, 0.06)",
+      "bg-field-hover": "rgba(244, 238, 227, 0.09)",
+      "bg-hover": "rgba(244, 238, 227, 0.04)",
+      "text-primary": "#F4EEE3",
+      "text-secondary": "#BDB3A0",
+      "text-muted": "#9A9081",
+      "text-inverse": "#16130F",
+      "text-link": "#9CBFBE",
+      "text-gold": "#C9993B",
+      "border-subtle": "rgba(244, 238, 227, 0.08)",
+      "border-default": "rgba(244, 238, 227, 0.14)",
+      "border-strong": "rgba(244, 238, 227, 0.32)",
+      "action-primary": "#C9993B",
+      "action-primary-hover": "#D2A648",
+      "on-action-primary": "#16130F",
+      "action-brand": "#C9993B",
+      "action-brand-hover": "#D2A648",
+      "on-action-brand": "#16130F",
+      "accent": "#C9993B",
+      "accent-soft": "rgba(201, 153, 59, 0.14)",
+      "focus-ring": "#D2A648",
+      "scrim": "rgba(0, 0, 0, 0.6)",
+      "success": "#7DBE8A",
+      "success-soft": "rgba(125, 190, 138, 0.14)",
+      "warning": "#DDB561",
+      "warning-soft": "rgba(221, 181, 97, 0.14)",
+      "danger": "#E8826B",
+      "danger-soft": "rgba(232, 130, 107, 0.14)",
+      "info": "#9CBFBE",
+      "info-soft": "rgba(156, 191, 190, 0.14)",
+      "neutral": "#BDB3A0",
+      "neutral-soft": "rgba(244, 238, 227, 0.08)"
+    }
+  },
+  "font": {
+    "family": {
+      "display": "'Space Grotesk', 'Manrope', system-ui, sans-serif",
+      "body": "'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif",
+      "mono": "'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace"
+    },
+    "size": {
+      "2xs": "11px",
+      "xs": "12px",
+      "sm": "13px",
+      "md": "14px",
+      "lg": "16px",
+      "xl": "18px",
+      "2xl": "22px",
+      "3xl": "28px",
+      "4xl": "36px",
+      "5xl": "48px",
+      "6xl": "64px"
+    },
+    "weight": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "leading": {
+      "tight": 1.1,
+      "snug": 1.3,
+      "normal": 1.5,
+      "relaxed": 1.65
+    },
+    "tracking": {
+      "display": "-0.02em",
+      "normal": "0",
+      "label": "0.14em"
+    }
+  },
+  "type": {
+    "$description": "Styles composés. Échelle « produit » (interfaces) ; l'échelle « éditoriale » (site, slides) monte à 64 px.",
+    "display": {
+      "family": "display",
+      "size": "5xl",
+      "weight": 700,
+      "leading": 1.05,
+      "tracking": "-0.02em"
+    },
+    "h1": {
+      "family": "display",
+      "size": "3xl",
+      "weight": 700,
+      "leading": 1.15,
+      "tracking": "-0.015em"
+    },
+    "h2": {
+      "family": "display",
+      "size": "2xl",
+      "weight": 700,
+      "leading": 1.2,
+      "tracking": "-0.01em"
+    },
+    "h3": {
+      "family": "display",
+      "size": "xl",
+      "weight": 600,
+      "leading": 1.3,
+      "tracking": "0"
+    },
+    "body-lg": {
+      "family": "body",
+      "size": "lg",
+      "weight": 400,
+      "leading": 1.6
+    },
+    "body": {
+      "family": "body",
+      "size": "md",
+      "weight": 400,
+      "leading": 1.55
+    },
+    "caption": {
+      "family": "body",
+      "size": "xs",
+      "weight": 500,
+      "leading": 1.4
+    },
+    "label": {
+      "family": "mono",
+      "size": "2xs",
+      "weight": 500,
+      "leading": 1.2,
+      "tracking": "0.14em",
+      "transform": "uppercase"
+    },
+    "data": {
+      "family": "mono",
+      "size": "md",
+      "weight": 500,
+      "leading": 1.3
+    },
+    "code": {
+      "family": "mono",
+      "size": "sm",
+      "weight": 400,
+      "leading": 1.6
+    }
+  },
+  "space": {
+    "0": "0",
+    "1": "4px",
+    "2": "8px",
+    "3": "12px",
+    "4": "16px",
+    "5": "24px",
+    "6": "32px",
+    "7": "48px",
+    "8": "64px",
+    "9": "96px"
+  },
+  "radius": {
+    "none": "0",
+    "sm": "3px",
+    "md": "6px",
+    "lg": "10px",
+    "pill": "999px",
+    "$description": "Rayons du symbole (7/146 du bloc) : des blocs à peine adoucis, jamais de pilule pour un bouton. pill est réservé aux pastilles de données."
+  },
+  "shadow": {
+    "none": "none",
+    "card": "0 1px 2px rgba(22, 19, 15, 0.06)",
+    "raised": "0 8px 24px rgba(22, 19, 15, 0.08)",
+    "overlay": "0 24px 64px rgba(22, 19, 15, 0.22)"
+  },
+  "motion": {
+    "duration": {
+      "fast": "120ms",
+      "base": "200ms",
+      "slow": "320ms"
+    },
+    "easing": {
+      "standard": "cubic-bezier(0.2, 0, 0, 1)",
+      "enter": "cubic-bezier(0, 0, 0, 1)",
+      "exit": "cubic-bezier(0.3, 0, 1, 1)"
+    }
+  },
+  "layout": {
+    "grid-columns": 12,
+    "gutter": "24px",
+    "container": "1200px",
+    "breakpoint": {
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px"
+    }
+  },
+  "icon": {
+    "stroke": 1.5,
+    "grid": 24,
+    "library": "lucide",
+    "sizes": {
+      "sm": "16px",
+      "md": "20px",
+      "lg": "24px"
+    }
+  },
+  "z": {
+    "dropdown": 1000,
+    "sticky": 1100,
+    "drawer": 1200,
+    "modal": 1300,
+    "toast": 1400,
+    "tooltip": 1500
+  }
+}

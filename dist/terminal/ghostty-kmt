@@ -1,0 +1,23 @@
+# GÉNÉRÉ par scripts/build.mjs depuis tokens/tokens.json — ne pas éditer à la main.
+palette = 0=#16130F
+palette = 1=#E8826B
+palette = 2=#7DBE8A
+palette = 3=#DDB561
+palette = 4=#6B9C9C
+palette = 5=#B98AA6
+palette = 6=#9CBFBE
+palette = 7=#D8CFBD
+palette = 8=#5E574D
+palette = 9=#F0A08D
+palette = 10=#9FD3AA
+palette = 11=#EBCF8E
+palette = 12=#9CBFBE
+palette = 13=#D3AEC2
+palette = 14=#CCDEDD
+palette = 15=#F4EEE3
+background = #16130F
+foreground = #F4EEE3
+cursor-color = #C9993B
+selection-background = #4A3B1E
+selection-foreground = #F4EEE3
+font-family = JetBrains Mono

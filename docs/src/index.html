@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="clair">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KMT — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>{{css:dist/css/kmt-tokens.css}}</style>
+<style>{{css:ui/kmt-ui.css}}</style>
+<style>
+  html, body { margin: 0; }
+  body { background: var(--kmt-bg-page); }
+  .doc { display: grid; grid-template-columns: 248px 1fr; min-height: 100vh; }
+  .doc-nav { position: sticky; top: 0; height: 100vh; overflow: auto; background: var(--kmt-neutre-950); color: var(--kmt-neutre-50); padding: 28px 16px; display: flex; flex-direction: column; gap: 2px; }
+  .doc-nav .brand { padding: 0 12px 24px; display: flex; align-items: center; gap: 12px; }
+  .doc-nav .brand svg { height: 24px; width: auto; }
+  .doc-nav .brand small { display: block; font: 500 10px/1 var(--kmt-font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--kmt-neutre-400); margin-top: 6px; }
+  .doc-nav .foot { margin-top: auto; padding: 16px 12px 0; font: 500 10px/1.6 var(--kmt-font-mono); letter-spacing: .1em; color: var(--kmt-neutre-500); text-transform: uppercase; }
+  .doc-main { min-width: 0; }
+  .doc-top { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 12px 48px; background: color-mix(in srgb, var(--kmt-bg-page) 88%, transparent); backdrop-filter: blur(8px); }
+  .sec { padding: 72px 48px 48px; max-width: 1120px; }
+  .sec-head { display: grid; gap: 12px; margin-bottom: 40px; max-width: 720px; }
+  .hero { padding: 0; max-width: none; }
+  .hero-in { padding: 96px 48px 80px; color: var(--kmt-neutre-50); }
+  .hero-in .kmt-display { font-size: 64px; max-width: 820px; }
+  .hero-in .kmt-display em { font-style: normal; color: var(--kmt-or-500); }
+  .hero-in p { color: var(--kmt-neutre-300); max-width: 620px; font-size: 18px; line-height: 1.6; }
+  .pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 64px; max-width: 1080px; }
+  .pillars b { display: block; font: 700 17px/1.3 var(--kmt-font-display); margin: 8px 0 6px; color: var(--kmt-neutre-50); }
+  .pillars p { font-size: 14px; margin: 0; }
+  .g2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .g5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  .tile { border-radius: var(--kmt-radius-lg); overflow: hidden; background: var(--kmt-bg-card); }
+  .tile__art { height: 180px; display: grid; place-items: center; }
+  .tile__art > svg { height: 56px; width: auto; max-width: 85%; }
+  .tile__art span > svg, .kmt-sidebar__brand span > svg { width: 100%; height: auto; display: block; }
+  .tile__meta { padding: 14px 16px; display: flex; justify-content: space-between; gap: 8px; }
+  .sw { border-radius: var(--kmt-radius-lg); overflow: hidden; background: var(--kmt-bg-card); }
+  .sw__c { height: 120px; }
+  .sw__m { padding: 14px 16px; display: grid; gap: 4px; }
+  .sw__m b { font: 700 15px/1.2 var(--kmt-font-display); }
+  .sw__m code { font: 400 11px/1.5 var(--kmt-font-mono); color: var(--kmt-text-muted); }
+  .ramp { display: grid; grid-template-columns: 90px repeat(10, 1fr); gap: 4px; align-items: center; margin-bottom: 6px; }
+  .ramp > div { height: 44px; border-radius: 4px; display: flex; align-items: flex-end; padding: 4px 6px; font: 500 9px/1 var(--kmt-font-mono); }
+  .ramp > span { font: 500 11px/1 var(--kmt-font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--kmt-text-muted); }
+  .prop { display: flex; height: 40px; border-radius: 8px; overflow: hidden; margin-top: 24px; }
+  .specimen { display: grid; grid-template-columns: 160px 1fr; gap: 24px; align-items: baseline; padding: 14px 0; }
+  .demo { border-radius: var(--kmt-radius-lg); background: var(--kmt-bg-card); overflow: hidden; }
+  .demo__stage { padding: 32px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+  .demo__stage--page { background: var(--kmt-bg-page); }
+  .demo__code { padding: 14px 32px 18px; font: 400 12px/1.7 var(--kmt-font-mono); color: var(--kmt-text-muted); overflow-x: auto; white-space: pre; }
+  .sub { font: 700 18px/1.3 var(--kmt-font-display); margin: 48px 0 16px; }
+  .dodont { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .dodont > div { border-radius: var(--kmt-radius-lg); padding: 24px; background: var(--kmt-success-soft); }
+  .dodont > div.dont { background: var(--kmt-danger-soft); }
+  .dodont ul { margin: 10px 0 0; padding-left: 18px; color: var(--kmt-text-secondary); display: grid; gap: 6px; }
+  .scale-row { display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+  .scale-row > div { display: grid; gap: 8px; justify-items: center; }
+  .icons { display: grid; grid-template-columns: repeat(9, 1fr); gap: 8px; }
+  .icons > div { display: grid; justify-items: center; gap: 10px; padding: 18px 4px; border-radius: var(--kmt-radius-md); background: var(--kmt-bg-card); font: 400 10px/1 var(--kmt-font-mono); color: var(--kmt-text-muted); }
+  .icons svg { width: 24px; height: 24px; color: var(--kmt-text-primary); }
+  .app { border-radius: var(--kmt-radius-lg); overflow: hidden; box-shadow: var(--kmt-shadow-raised); height: 580px; }
+  .app .kmt-shell { height: 100%; }
+  .app main { background: var(--kmt-bg-page); overflow: hidden; display: flex; flex-direction: column; }
+  .contrast td:nth-child(3) { font-family: var(--kmt-font-mono); }
+  @media (max-width: 960px) { .doc { grid-template-columns: 1fr; } .doc-nav { display: none; } .g3, .g4, .g5, .pillars, .dodont { grid-template-columns: 1fr 1fr; } .sec { padding: 48px 20px; } .hero-in { padding: 64px 20px; } }
+</style>
+</head>
+<body class="kmt">
+<div class="doc">
+  <nav class="doc-nav" aria-label="Sommaire">
+    <div class="brand">{{svg:logo/svg/kmt-lockup-sur-sombre.svg}}</div>
+    <div class="kmt-sidebar__section">Fondations</div>
+    <a class="kmt-nav-item" href="#principes">{{i:layers}} Principes</a>
+    <a class="kmt-nav-item" href="#logo">{{i:shield}} Logo</a>
+    <a class="kmt-nav-item" href="#couleurs">{{i:sliders}} Couleurs</a>
+    <a class="kmt-nav-item" href="#typo">{{i:file-text}} Typographie</a>
+    <a class="kmt-nav-item" href="#espace">{{i:layers}} Espace, rayons, ombres</a>
+    <a class="kmt-nav-item" href="#icones">{{i:globe}} Icônes &amp; motif</a>
+    <div class="kmt-sidebar__section">Composants</div>
+    <a class="kmt-nav-item" href="#boutons">{{i:check}} Boutons</a>
+    <a class="kmt-nav-item" href="#formulaires">{{i:pencil}} Formulaires</a>
+    <a class="kmt-nav-item" href="#statuts">{{i:info}} Badges &amp; alertes</a>
+    <a class="kmt-nav-item" href="#cartes">{{i:inbox}} Cartes &amp; KPI</a>
+    <a class="kmt-nav-item" href="#navigation">{{i:chevron-right}} Navigation</a>
+    <a class="kmt-nav-item" href="#donnees">{{i:chart}} Tableaux</a>
+    <a class="kmt-nav-item" href="#surcouches">{{i:copy}} Menus &amp; modales</a>
+    <div class="kmt-sidebar__section">Surfaces</div>
+    <a class="kmt-nav-item" href="#app">{{i:home}} Application</a>
+    <a class="kmt-nav-item" href="#cli">{{i:terminal}} CLI</a>
+    <a class="kmt-nav-item" href="#documents">{{i:signature}} Documents</a>
+    <a class="kmt-nav-item" href="#integration">{{i:git-branch}} Intégration</a>
+    <div class="foot">KMT Design System<br>v1.0 · novembre 2026<br>openkmt.org</div>
+  </nav>
+
+  <div class="doc-main">
+    <div class="doc-top">
+      <span class="kmt-label">Thème</span>
+      <div class="kmt-segmented" role="group" aria-label="Thème">
+        <button aria-pressed="true" data-set="clair">Papyrus</button>
+        <button aria-pressed="false" data-set="sombre">Noir KMT</button>
+      </div>
+    </div>
+
+    <!-- ========== HERO ========== -->
+    <section class="sec hero kmt-motif" id="principes">
+      <div class="hero-in">
+        <div class="kmt-eyebrow" style="color:var(--kmt-or-500);margin-bottom:24px">KMT · Design System · v1.0</div>
+        <h1 class="kmt-display">Une seule empreinte, <em>partout</em> où KMT construit.</h1>
+        <p style="margin-top:24px">Site, Zeno, EDMS, DevPanel, CLI, contrats, factures, t-shirts : on doit reconnaître KMT au premier regard, sans voir le logo. Ce système en donne les règles et les pièces, depuis une seule source de tokens.</p>
+        <div class="pillars">
+          <div><span class="kmt-label" style="color:var(--kmt-or-500)">01</span><b>La grammaire des blocs</b><p>L'interface parle la langue du symbole : une colonne, des modules, et le joint de 3 px entre eux.</p></div>
+          <div><span class="kmt-label" style="color:var(--kmt-or-500)">02</span><b>Le papier, comme le code</b><p>Papyrus par défaut, Noir KMT pour les moments clés. L'or est rare : il désigne ce qui compte.</p></div>
+          <div><span class="kmt-label" style="color:var(--kmt-or-500)">03</span><b>Sans traits</b><p>Ni cadres, ni filets, ni soulignés. L'espace sépare, un fond regroupe, la typo hiérarchise.</p></div>
+          <div><span class="kmt-label" style="color:var(--kmt-or-500)">04</span><b>Souverain et sobre</b><p>Polices libres, icônes libres, tokens ouverts. Tout se réutilise sans licence ni compte étranger.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== LOGO ========== -->
+    <section class="sec" id="logo">
+      <div class="sec-head"><span class="kmt-eyebrow">01 — Logo</span><h2 class="kmt-h1">Le symbole et le lockup</h2>
+        <p class="kmt-lead">Quatre blocs arrondis qui dessinent un K : une colonne, trois modules. L'or vit sur le noir ; sur papyrus, le symbole reste or et le mot passe en Noir KMT.</p></div>
+      <div class="g2">
+        <div class="tile"><div class="tile__art" style="background:var(--kmt-neutre-950)">{{svg:logo/svg/kmt-lockup-sur-sombre.svg}}</div><div class="tile__meta"><span class="kmt-label">Principal — sur Noir KMT</span><span class="kmt-caption">kmt-lockup-sur-sombre.svg</span></div></div>
+        <div class="tile"><div class="tile__art" style="background:var(--kmt-neutre-100)">{{svg:logo/svg/kmt-lockup-sur-clair.svg}}</div><div class="tile__meta"><span class="kmt-label">Sur Papyrus</span><span class="kmt-caption">kmt-lockup-sur-clair.svg</span></div></div>
+      </div>
+      <div class="g4" style="margin-top:16px">
+        <div class="tile"><div class="tile__art" style="background:#fff">{{svg:logo/svg/kmt-lockup-mono-noir.svg}}</div><div class="tile__meta"><span class="kmt-label">Mono noir</span></div></div>
+        <div class="tile"><div class="tile__art" style="background:var(--kmt-nil-500)">{{svg:logo/svg/kmt-lockup-mono-papyrus.svg}}</div><div class="tile__meta"><span class="kmt-label">Mono papyrus</span></div></div>
+        <div class="tile"><div class="tile__art" style="background:var(--kmt-neutre-100)"><span style="width:88px;display:block">{{svg:logo/svg/kmt-icone-app.svg}}</span></div><div class="tile__meta"><span class="kmt-label">Icône app</span></div></div>
+        <div class="tile"><div class="tile__art" style="background:var(--kmt-neutre-950)"><span style="width:56px;display:block">{{svg:logo/svg/kmt-symbole-or.svg}}</span></div><div class="tile__meta"><span class="kmt-label">Symbole seul</span></div></div>
+      </div>
+      <div class="dodont" style="margin-top:24px">
+        <div><b>À faire</b><ul><li>Zone de protection = hauteur d'un bloc horizontal tout autour.</li><li>Taille mini : symbole 16 px écran, lockup 24 px de haut, 8 mm en print.</li><li>Produits : « KMT Zeno », « KMT EDMS » — le symbole suffit en favicon.</li></ul></div>
+        <div class="dont"><b>À éviter</b><ul><li>Recolorer les blocs, les espacer, les pivoter, les animer hors loader officiel.</li><li>Or sur papyrus pour du <em>texte</em> (contraste 2,2:1).</li><li>Logo géant sur les goodies : le signe suffit, brodé petit.</li><li>Encadrer le logo ou le poser sur un filet.</li></ul></div>
+      </div>
+    </section>
+
+    <!-- ========== COULEURS ========== -->
+    <section class="sec" id="couleurs">
+      <div class="sec-head"><span class="kmt-eyebrow">02 — Couleurs</span><h2 class="kmt-h1">Cinq couleurs, des proportions fixes</h2>
+        <p class="kmt-lead">Papyrus domine, Noir KMT structure, l'or ponctue. Le Nil porte les liens et l'information.</p></div>
+      <div class="g5">
+        <div class="sw"><div class="sw__c" style="background:#16130F"></div><div class="sw__m"><b>Noir KMT</b><code>#16130F · 22 %</code><code>--kmt-noir-kmt</code></div></div>
+        <div class="sw"><div class="sw__c" style="background:#F4EEE3;box-shadow:inset 0 -1px 0 rgba(22,19,15,.04)"></div><div class="sw__m"><b>Papyrus</b><code>#F4EEE3 · 55 %</code><code>--kmt-papyrus</code></div></div>
+        <div class="sw"><div class="sw__c" style="background:#C9993B"></div><div class="sw__m"><b>Or Solaire</b><code>#C9993B · 8 %</code><code>--kmt-or-solaire</code></div></div>
+        <div class="sw"><div class="sw__c" style="background:#2E5A5C"></div><div class="sw__m"><b>Nil</b><code>#2E5A5C · 5 %</code><code>--kmt-nil</code></div></div>
+        <div class="sw"><div class="sw__c" style="background:#D8CFBD"></div><div class="sw__m"><b>Sable</b><code>#D8CFBD · 10 %</code><code>--kmt-sable</code></div></div>
+      </div>
+      <div class="prop"><div style="flex:55;background:#ECE5D7"></div><div style="flex:22;background:#16130F"></div><div style="flex:10;background:#D8CFBD"></div><div style="flex:8;background:#C9993B"></div><div style="flex:5;background:#2E5A5C"></div></div>
+      <p class="kmt-caption" style="margin-top:8px">Proportions d'usage — Papyrus 55 · Noir KMT 22 · Sable 10 · Or Solaire 8 · Nil 5</p>
+
+      <h3 class="sub">Échelles</h3>
+      {{ramps}}
+
+      <h3 class="sub">Rôles sémantiques</h3>
+      <p class="kmt-text" style="margin-bottom:16px">Les composants n'utilisent que des rôles (<code class="kmt-code">--kmt-text-primary</code>, <code class="kmt-code">--kmt-action-brand</code>…), jamais une teinte brute. C'est ce qui permet le thème sombre et l'intégration dans Zeno sans réécrire un composant.</p>
+      <div class="kmt-table-wrap"><table class="kmt-table contrast"><thead><tr><th>Rôle</th><th>Usage</th><th>Papyrus</th><th>Noir KMT</th><th>Contraste</th></tr></thead><tbody>{{roles}}</tbody></table></div>
+    </section>
+
+    <!-- ========== TYPO ========== -->
+    <section class="sec" id="typo">
+      <div class="sec-head"><span class="kmt-eyebrow">03 — Typographie</span><h2 class="kmt-h1">Trois voix, toutes libres</h2>
+        <p class="kmt-lead">Space Grotesk pour titrer, Manrope pour lire, JetBrains Mono pour étiqueter et coder. Les trois sont sous licence OFL.</p></div>
+      <div class="g3" style="margin-bottom:32px">
+        <div class="kmt-card"><div style="font:700 56px/1 var(--kmt-font-display)">Aa</div><p class="kmt-label" style="margin:16px 0 4px">Space Grotesk · 500–700</p><p class="kmt-text">Titres, wordmark, chiffres clés.</p></div>
+        <div class="kmt-card"><div style="font:500 56px/1 var(--kmt-font-body)">Aa</div><p class="kmt-label" style="margin:16px 0 4px">Manrope · 400–700</p><p class="kmt-text">Texte courant et interface.</p></div>
+        <div class="kmt-card"><div style="font:500 56px/1 var(--kmt-font-mono)">Aa</div><p class="kmt-label" style="margin:16px 0 4px">JetBrains Mono · 400–600</p><p class="kmt-text">Labels, code, données, CLI.</p></div>
+      </div>
+      <div class="kmt-card">
+        <div class="specimen"><span class="kmt-label">Display · 48</span><span class="kmt-display">Construire le logiciel du continent</span></div>
+        <div class="specimen"><span class="kmt-label">H1 · 28</span><span class="kmt-h1">Devis &amp; facturation</span></div>
+        <div class="specimen"><span class="kmt-label">H2 · 22</span><span class="kmt-h2">Prospects du trimestre</span></div>
+        <div class="specimen"><span class="kmt-label">H3 · 18</span><span class="kmt-h3">Pièces justificatives</span></div>
+        <div class="specimen"><span class="kmt-label">Body · 14</span><span class="kmt-text" style="color:var(--kmt-text-primary)">Une interface lisible avant tout. Le texte courant reste sobre, aéré, précis — au service du produit.</span></div>
+        <div class="specimen"><span class="kmt-label">Caption · 12</span><span class="kmt-caption">Mis à jour il y a 3 minutes par Awa</span></div>
+        <div class="specimen"><span class="kmt-label">Label · 11 mono</span><span class="kmt-eyebrow">Module Zeno</span></div>
+        <div class="specimen"><span class="kmt-label">Data · 14 mono</span><span class="kmt-data">1 250 000 FCFA · 1 905,61 € · 2026-11-19</span></div>
+      </div>
+    </section>
+
+    <!-- ========== ESPACE ========== -->
+    <section class="sec" id="espace">
+      <div class="sec-head"><span class="kmt-eyebrow">04 — Espace, rayons, ombres</span><h2 class="kmt-h1">Grille de 8, rayons du symbole, joint de 3</h2>
+        <p class="kmt-lead">Base 8 px, grille 12 colonnes, gouttière 24. Les rayons sont ceux du symbole : 3, 6, 10 px, des blocs à peine adoucis. Aucune pilule pour un bouton. Et le joint, 3 px, l'écart entre deux modules.</p></div>
+      <h3 class="sub">Espacements</h3>
+      <div class="scale-row">{{spaces}}</div>
+      <h3 class="sub">Rayons</h3>
+      <div class="scale-row">
+        <div><div style="width:72px;height:72px;background:var(--kmt-or-100);border-radius:3px"></div><span class="kmt-label">sm · 3</span></div>
+        <div><div style="width:72px;height:72px;background:var(--kmt-or-100);border-radius:6px"></div><span class="kmt-label">md · 6</span></div>
+        <div><div style="width:72px;height:72px;background:var(--kmt-or-100);border-radius:10px"></div><span class="kmt-label">lg · 10</span></div>
+        <div><div style="display:flex;gap:3px"><div style="width:88px;height:40px;background:var(--kmt-neutre-950);border-radius:6px"></div><div style="width:40px;height:40px;background:var(--kmt-or-500);border-radius:6px"></div></div><span class="kmt-label">joint · 3</span></div>
+      </div>
+      <h3 class="sub">Élévation</h3>
+      <div class="g3">
+        <div class="kmt-card"><span class="kmt-label">card</span><p class="kmt-text">Cartes au repos — à peine détachées.</p></div>
+        <div class="kmt-card kmt-card--raised"><span class="kmt-label">raised · 0 8 24 · noir 8 %</span><p class="kmt-text">Menus, survols, panneaux flottants.</p></div>
+        <div class="kmt-card" style="box-shadow:var(--kmt-shadow-overlay)"><span class="kmt-label">overlay</span><p class="kmt-text">Modales et toasts uniquement.</p></div>
+      </div>
+    </section>
+
+    <!-- ========== ICONES ========== -->
+    <section class="sec" id="icones">
+      <div class="sec-head"><span class="kmt-eyebrow">05 — Icônes &amp; motif</span><h2 class="kmt-h1">Trait unique, géométrie stricte</h2>
+        <p class="kmt-lead">Bibliothèque Lucide (libre, ISC), trait 1,5 px, grille 24, jamais de remplissage. Les icônes orientent, elles ne décorent pas.</p></div>
+      <div class="icons">{{iconsgrid}}</div>
+      <h3 class="sub">Motif « blocs »</h3>
+      <div class="kmt-motif" style="height:180px;border-radius:var(--kmt-radius-md);display:grid;place-items:center"><span class="kmt-label" style="color:var(--kmt-or-400)">.kmt-motif — couvertures, bandeaux, fonds de slides · opacité 7 %</span></div>
+      <h3 class="sub">Loader de marque</h3>
+      <div class="kmt-row"><span class="kmt-loader" role="status" aria-label="Chargement"><i></i><i></i><i></i><i></i></span><span class="kmt-caption">Les quatre blocs du symbole s'allument tour à tour. Respecte <code class="kmt-code">prefers-reduced-motion</code>.</span></div>
+    </section>
+
+    <!-- ========== BOUTONS ========== -->
+    <section class="sec" id="boutons">
+      <div class="sec-head"><span class="kmt-eyebrow">06 — Boutons</span><h2 class="kmt-h1">Un bloc, un module</h2>
+        <p class="kmt-lead">Le bouton KMT est un bloc et son module, comme le symbole : le libellé d'un côté, l'icône détachée de l'autre, séparés par le joint de 3 px. Au survol, le joint s'ouvre et le module se détache. Noir + module or pour l'action principale, or + module noir pour l'action de marque.</p></div>
+      <div class="demo"><div class="demo__stage">
+        <button class="kmt-btn"><span>Déployer Zeno</span><i>{{i:arrow-right}}</i></button>
+        <button class="kmt-btn kmt-btn--brand"><span>Rejoindre</span><i>{{i:plus}}</i></button>
+        <button class="kmt-btn kmt-btn--secondary"><span>Docs</span><i>{{i:file-text}}</i></button>
+        <button class="kmt-btn kmt-btn--ghost">Annuler</button>
+        <button class="kmt-btn kmt-btn--danger"><span>Supprimer</span><i>{{i:trash}}</i></button>
+        <button class="kmt-btn" disabled><span>Désactivé</span><i>{{i:x}}</i></button>
+      </div><div class="demo__code">&lt;button class="kmt-btn"&gt;&lt;span&gt;Déployer Zeno&lt;/span&gt;&lt;i&gt;[icône]&lt;/i&gt;&lt;/button&gt;   — survolez : le module se détache</div></div>
+      <div class="demo" style="margin-top:16px"><div class="demo__stage">
+        <button class="kmt-btn kmt-btn--sm"><span>Nouveau</span><i>{{i:plus}}</i></button>
+        <button class="kmt-btn kmt-btn--secondary"><span>Exporter</span><i>{{i:download}}</i></button>
+        <button class="kmt-btn kmt-btn--lg kmt-btn--brand"><span>Contribuer à Zeno</span><i>{{i:git-branch}}</i></button>
+        <button class="kmt-btn kmt-btn--secondary kmt-btn--icon" aria-label="Plus d'actions">{{i:more}}</button>
+        <button class="kmt-btn kmt-btn--ghost kmt-btn--icon kmt-btn--sm" aria-label="Modifier">{{i:pencil}}</button>
+      </div><div class="demo__code">Tailles : --sm (32) · défaut (40) · --lg (52) · --icon : un module seul · sans &lt;i&gt; : un bloc simple</div></div>
+      <div class="kmt-card" style="margin-top:16px;max-width:420px"><button class="kmt-btn kmt-btn--block"><span>Signer le contrat KMT-CP-2026-004</span><i>{{i:signature}}</i></button></div>
+    </section>
+
+    <!-- ========== FORMULAIRES ========== -->
+    <section class="sec" id="formulaires">
+      <div class="sec-head"><span class="kmt-eyebrow">07 — Formulaires</span><h2 class="kmt-h1">Des champs qui ressemblent à du texte</h2>
+        <p class="kmt-lead">Aucun cadre, aucun soulignement. Le formulaire inline aligne libellé et valeur ; le champ ne montre son fond qu'au survol, et au focus un module or s'allume devant le libellé. Pour une saisie longue, un fond léger suffit à signaler la zone.</p></div>
+      <div class="g2" style="align-items:start">
+        <div class="kmt-card">
+          <span class="kmt-label">Inline — fiche, réglages, édition rapide</span>
+          <div class="kmt-form-inline" style="margin-top:16px">
+            <label class="kmt-inline"><span class="kmt-inline__label">Raison sociale</span><input class="kmt-input" value="Teranga Logistique SARL"></label>
+            <label class="kmt-inline"><span class="kmt-inline__label">Contact</span><input class="kmt-input" value="Aïcha Koné"></label>
+            <label class="kmt-inline"><span class="kmt-inline__label">E-mail</span><input class="kmt-input" value="contact@teranga" aria-invalid="true"></label>
+            <label class="kmt-inline"><span class="kmt-inline__label">Devise</span><select class="kmt-select"><option>Franc CFA (XOF)</option><option>Euro (EUR)</option></select></label>
+            <label class="kmt-inline"><span class="kmt-inline__label">Ville</span><input class="kmt-input" placeholder="Ajouter une ville"></label>
+            <div class="kmt-inline"><span class="kmt-inline__label">Hors-ligne</span><label class="kmt-switch"><input type="checkbox" checked> Activé</label></div>
+          </div>
+        </div>
+        <div class="kmt-card kmt-stack">
+          <span class="kmt-label">Empilé — création, saisie longue</span>
+          <div class="kmt-field"><label class="kmt-field__label" for="f4">Rechercher</label><div class="kmt-input-group"><span class="kmt-input-group__mod">{{i:search}}</span><input class="kmt-input" id="f4" placeholder="Prospect, contrat, facture…"><span class="kmt-input-group__mod">⌘K</span></div></div>
+          <div class="kmt-field"><label class="kmt-field__label" for="f6">Montant</label><div class="kmt-input-group"><input class="kmt-input" id="f6" value="1 250 000" style="font-family:var(--kmt-font-mono)"><span class="kmt-input-group__mod">FCFA</span></div></div>
+          <div class="kmt-field"><label class="kmt-field__label" for="f5">Note interne</label><textarea class="kmt-textarea" id="f5">Rendez-vous fixé jeudi, apporter la démo Zeno.</textarea><span class="kmt-field__hint">Visible par l'équipe uniquement.</span></div>
+          <label class="kmt-check"><input type="checkbox" checked> Envoyer le contrat pour signature</label>
+          <div class="kmt-row"><label class="kmt-check"><input type="radio" name="r" checked> Mensuel</label><label class="kmt-check"><input type="radio" name="r"> Annuel</label></div>
+          <div class="kmt-segmented" role="group"><button aria-pressed="true">Jour</button><button aria-pressed="false">Semaine</button><button aria-pressed="false">Mois</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== STATUTS ========== -->
+    <section class="sec" id="statuts">
+      <div class="sec-head"><span class="kmt-eyebrow">08 — Badges &amp; alertes</span><h2 class="kmt-h1">Dire l'état sans crier</h2>
+        <p class="kmt-lead">Couleurs tirées de la terre : palmier, or brûlé, terre cuite, Nil. Une notice est un module de statut plein et un corps teinté, côte à côte. Pastilles carrées, jamais rondes.</p></div>
+      <div class="demo"><div class="demo__stage">
+        <span class="kmt-badge kmt-badge--success kmt-badge--dot">Payée</span>
+        <span class="kmt-badge kmt-badge--warning kmt-badge--dot">En attente</span>
+        <span class="kmt-badge kmt-badge--danger kmt-badge--dot">En retard</span>
+        <span class="kmt-badge kmt-badge--info kmt-badge--dot">En cours</span>
+        <span class="kmt-badge">Brouillon</span>
+        <span class="kmt-badge kmt-badge--gold">Contributeur or</span>
+        <span class="kmt-badge kmt-badge--label">Open source</span>
+        <span class="kmt-tag"><span>Abidjan</span><button aria-label="Retirer">×</button></span>
+      </div></div>
+      <div class="kmt-stack" style="margin-top:16px">
+        <div class="kmt-alert kmt-alert--success">{{i:check-circle}}<div><p class="kmt-alert__title">Contrat signé</p><p class="kmt-alert__body">Le prestataire a signé le contrat via DocuSeal. Une copie a été archivée.</p></div></div>
+        <div class="kmt-alert kmt-alert--warning">{{i:alert-triangle}}<div><p class="kmt-alert__title">Facture à relancer</p><p class="kmt-alert__body">L'échéance de FAC-2026-014 est passée depuis 5 jours.</p></div><button class="kmt-btn kmt-btn--sm kmt-btn--secondary"><span>Relancer</span><i>{{i:mail}}</i></button></div>
+        <div class="kmt-alert kmt-alert--danger">{{i:x}}<div><p class="kmt-alert__title">Échec du déploiement</p><p class="kmt-alert__body">Le build <code class="kmt-code">a41f9c2</code> n'a pas passé les tests e2e.</p></div></div>
+        <div class="kmt-alert">{{i:info}}<div><p class="kmt-alert__title">Nouvelle version d'EDMS</p><p class="kmt-alert__body">La 1.8 apporte l'OCR des factures fournisseurs.</p></div></div>
+        <div><div class="kmt-toast">{{i:check}}<span>Prospect ajouté à la campagne « chill @ build 02 » <button class="kmt-toast__action">Annuler</button></span></div></div>
+      </div>
+    </section>
+
+    <!-- ========== CARTES ========== -->
+    <section class="sec" id="cartes">
+      <div class="sec-head"><span class="kmt-eyebrow">09 — Cartes &amp; KPI</span><h2 class="kmt-h1">Des tuiles qui s'emboîtent</h2>
+        <p class="kmt-lead">Au survol, une tuile se soulève d'un joint et révèle son ombre-bloc or, nette, sans flou. Les chiffres clés s'accompagnent d'un histogramme en blocs.</p></div>
+      <div class="g3">
+        <div class="kmt-card kmt-card--interactive"><span class="kmt-index kmt-card__index">01</span><span class="kmt-eyebrow">Module Zeno</span><h3 class="kmt-card__title" style="margin:10px 0 8px">Devis &amp; facturation</h3><p class="kmt-text">Du devis au règlement, en franc CFA comme en euro. Multi-devises, multi-entités, hors-ligne d'abord.</p></div>
+        <div class="kmt-card kmt-card--inverse kmt-card--interactive"><span class="kmt-index kmt-card__index" style="color:var(--kmt-neutre-500)">02</span><span class="kmt-eyebrow">Produit 02</span><h3 class="kmt-card__title" style="margin:10px 0 8px">EDMS</h3><p class="kmt-text">Classer, retrouver, partager, archiver : la mémoire documentaire des organisations.</p><div style="margin-top:16px"><span class="kmt-badge kmt-badge--label" style="--_c:var(--kmt-or-500);--_s:rgba(201,153,59,.14)">Open source</span></div></div>
+        <div class="kmt-card"><div class="kmt-card__header"><div><span class="kmt-label">Contributeurs</span></div><div class="kmt-avatar-stack"><span class="kmt-avatar kmt-avatar--noir">FB</span><span class="kmt-avatar kmt-avatar--nil">DK</span><span class="kmt-avatar">ZL</span></div></div><div class="kmt-progress" role="progressbar" aria-valuenow="64" aria-label="Progression" style="--value:64"></div><p class="kmt-caption" style="margin-top:8px">16 tâches sur 25 livrées cette semaine</p></div>
+      </div>
+      <div class="g4" style="margin-top:24px">
+        <div class="kmt-card kmt-kpi"><span class="kmt-label">Prospects</span><span class="kmt-kpi__value">248</span><div class="kmt-bars" aria-hidden="true"><i style="height:30%"></i><i style="height:45%"></i><i style="height:38%"></i><i style="height:60%"></i><i style="height:52%"></i><i style="height:74%"></i><i style="height:100%"></i></div><span class="kmt-kpi__delta kmt-kpi__delta--up">▲ 12 % vs oct.</span></div>
+        <div class="kmt-card kmt-kpi"><span class="kmt-label">Encaissé</span><span class="kmt-kpi__value">14,2<small style="font-size:16px"> M FCFA</small></span><span class="kmt-kpi__delta kmt-kpi__delta--up">▲ 4 %</span></div>
+        <div class="kmt-card kmt-kpi"><span class="kmt-label">Retards</span><span class="kmt-kpi__value">3</span><span class="kmt-kpi__delta kmt-kpi__delta--down">▼ 2 factures</span></div>
+        <div class="kmt-card kmt-card--inverse kmt-kpi"><span class="kmt-label" style="color:var(--kmt-neutre-400)">Contributeurs actifs</span><span class="kmt-kpi__value" style="color:var(--kmt-or-500)">12</span><span class="kmt-kpi__delta" style="color:var(--kmt-neutre-400)">objectif 20</span></div>
+      </div>
+      <h3 class="sub">Tuile composée &amp; étapes</h3>
+      <div class="g2" style="align-items:start">
+        <div class="kmt-stack-card"><div><span class="kmt-eyebrow">Contrat</span><h3 class="kmt-card__title" style="margin-top:8px">KMT-CP-2026-004</h3></div><div class="kmt-text">Prestation de services · 6 mois · signature DocuSeal.</div><div class="kmt-row" style="justify-content:space-between"><span class="kmt-badge kmt-badge--warning kmt-badge--dot">À signer</span><button class="kmt-btn kmt-btn--sm"><span>Ouvrir</span><i>{{i:arrow-right}}</i></button></div></div>
+        <ol class="kmt-steps"><li class="is-done">Devis</li><li class="is-done">Accord</li><li class="is-current">Contrat</li><li>Facture</li><li>Paiement</li></ol>
+      </div>
+      <h3 class="sub">État vide</h3>
+      <div class="kmt-empty"><div class="kmt-empty__icon" aria-hidden="true"><i></i><i></i></div><h3 class="kmt-h3">Aucune facture pour l'instant</h3><p class="kmt-text" style="max-width:380px">Créez votre premier devis : il se transforme en facture en un clic une fois accepté.</p><button class="kmt-btn"><span>Nouveau devis</span><i>{{i:plus}}</i></button></div>
+    </section>
+
+    <!-- ========== NAVIGATION ========== -->
+    <section class="sec" id="navigation">
+      <div class="sec-head"><span class="kmt-eyebrow">10 — Navigation</span><h2 class="kmt-h1">Savoir où l'on est</h2></div>
+      <div class="demo"><div class="demo__stage" style="display:grid;gap:28px">
+        <ol class="kmt-breadcrumb"><li><a href="#">Zeno</a></li><li><a href="#">Prospects</a></li><li><span aria-current="page">Teranga Logistique</span></li></ol>
+        <div class="kmt-tabs" role="tablist"><button role="tab" aria-selected="true">Vue d'ensemble</button><button role="tab" aria-selected="false">Contrats <span class="kmt-index">03</span></button><button role="tab" aria-selected="false">Factures <span class="kmt-index">12</span></button><button role="tab" aria-selected="false">Historique</button></div>
+        <nav class="kmt-pagination" aria-label="Pagination"><a href="#">‹</a><a href="#">1</a><a href="#" aria-current="page">2</a><a href="#">3</a><span>…</span><a href="#">12</a><a href="#">›</a></nav>
+      </div></div>
+    </section>
+
+    <!-- ========== TABLEAU ========== -->
+    <section class="sec" id="donnees">
+      <div class="sec-head"><span class="kmt-eyebrow">11 — Tableaux</span><h2 class="kmt-h1">Des données qu'on lit d'un coup d'œil</h2>
+        <p class="kmt-lead">Chaque ligne est un bloc ; le joint entre les lignes dessine la grille, sans un seul trait. En-têtes en label mono, montants en chiffres tabulaires.</p></div>
+      <div class="kmt-table-wrap"><table class="kmt-table">
+        <thead><tr><th>N°</th><th>Client</th><th>Échéance</th><th>Statut</th><th style="text-align:right">Montant</th><th></th></tr></thead>
+        <tbody>
+          <tr><td class="kmt-data">FAC-2026-016</td><td><div class="kmt-row" style="gap:10px"><span class="kmt-avatar">TL</span>Teranga Logistique</div></td><td class="kmt-caption">30 nov. 2026</td><td><span class="kmt-badge kmt-badge--info kmt-badge--dot">Envoyée</span></td><td class="kmt-num">1 250 000 FCFA</td><td><button class="kmt-btn kmt-btn--ghost kmt-btn--icon kmt-btn--sm" aria-label="Actions">{{i:more}}</button></td></tr>
+          <tr><td class="kmt-data">FAC-2026-015</td><td><div class="kmt-row" style="gap:10px"><span class="kmt-avatar kmt-avatar--nil">AB</span>Akwaba Santé</div></td><td class="kmt-caption">22 nov. 2026</td><td><span class="kmt-badge kmt-badge--success kmt-badge--dot">Payée</span></td><td class="kmt-num">680 000 FCFA</td><td><button class="kmt-btn kmt-btn--ghost kmt-btn--icon kmt-btn--sm" aria-label="Actions">{{i:more}}</button></td></tr>
+          <tr><td class="kmt-data">FAC-2026-014</td><td><div class="kmt-row" style="gap:10px"><span class="kmt-avatar">CI</span>Cocody Immobilier</div></td><td class="kmt-caption">14 nov. 2026</td><td><span class="kmt-badge kmt-badge--danger kmt-badge--dot">En retard</span></td><td class="kmt-num">2 400 000 FCFA</td><td><button class="kmt-btn kmt-btn--ghost kmt-btn--icon kmt-btn--sm" aria-label="Actions">{{i:more}}</button></td></tr>
+        </tbody></table></div>
+    </section>
+
+    <!-- ========== SURCOUCHES ========== -->
+    <section class="sec" id="surcouches">
+      <div class="sec-head"><span class="kmt-eyebrow">12 — Menus &amp; modales</span><h2 class="kmt-h1">Surcouches</h2></div>
+      <div class="g2" style="align-items:start">
+        <div class="kmt-stack">
+          <div class="kmt-menu" role="menu"><button class="kmt-menu__item">{{i:pencil}} Modifier <kbd>E</kbd></button><button class="kmt-menu__item">{{i:copy}} Dupliquer</button><button class="kmt-menu__item">{{i:signature}} Envoyer pour signature</button><div class="kmt-menu__sep"></div><button class="kmt-menu__item kmt-menu__item--danger">{{i:trash}} Supprimer</button></div>
+          <span class="kmt-tooltip" style="align-self:flex-start"><span>Copier le lien</span><kbd>⌘C</kbd></span>
+        </div>
+        <div class="kmt-modal" role="dialog" aria-labelledby="mt"><div class="kmt-modal__header"><h3 class="kmt-h2" id="mt">Supprimer ce devis ?</h3></div><div class="kmt-modal__body">Le devis DEV-2026-031 sera supprimé définitivement. Les factures déjà émises ne sont pas touchées.</div><div class="kmt-modal__footer"><button class="kmt-btn kmt-btn--ghost">Annuler</button><button class="kmt-btn kmt-btn--danger"><span>Supprimer</span><i>{{i:trash}}</i></button></div></div>
+      </div>
+    </section>
+
+    <!-- ========== APP ========== -->
+    <section class="sec" id="app">
+      <div class="sec-head"><span class="kmt-eyebrow">13 — Application</span><h2 class="kmt-h1">La coque commune à Zeno, EDMS et DevPanel</h2>
+        <p class="kmt-lead">La barre latérale est la colonne du symbole, le contenu ses modules, séparés par le joint. L'entrée active allume son module d'icône en or ; les chiffres clés forment une mosaïque collée au joint. Chaque produit change de nom et de modules, jamais de coque.</p></div>
+      <div class="app"><div class="kmt-shell">
+        <aside class="kmt-sidebar">
+          <div class="kmt-sidebar__brand"><span style="width:22px;display:block">{{svg:logo/svg/kmt-symbole-or.svg}}</span><span>Zeno</span></div>
+          <a class="kmt-nav-item" href="#app">{{i:home}} Accueil</a>
+          <a class="kmt-nav-item" href="#app" aria-current="page">{{i:users}} Prospects <span class="kmt-nav-item__count">248</span></a>
+          <a class="kmt-nav-item" href="#app">{{i:signature}} Contrats</a>
+          <a class="kmt-nav-item" href="#app">{{i:banknote}} Facturation</a>
+          <a class="kmt-nav-item" href="#app">{{i:calendar}} Agenda</a>
+          <div class="kmt-sidebar__section">Instance</div>
+          <a class="kmt-nav-item" href="#app">{{i:building}} KMT</a>
+          <a class="kmt-nav-item" href="#app">{{i:sliders}} Réglages</a>
+        </aside>
+        <main>
+          <div class="kmt-topbar"><div class="kmt-input-group" style="width:340px"><span class="kmt-input-group__mod">{{i:search}}</span><input class="kmt-input" placeholder="Rechercher"></div><div style="margin-left:auto" class="kmt-row" style="gap:3px"><button class="kmt-btn kmt-btn--secondary kmt-btn--icon" aria-label="Notifications">{{i:bell}}</button><span class="kmt-avatar kmt-avatar--noir" style="width:40px;height:40px">FB</span></div></div>
+          <div style="padding:28px;display:grid;gap:20px">
+            <div class="kmt-row" style="justify-content:space-between"><div><span class="kmt-label">Pipeline · novembre</span><h2 class="kmt-h1" style="margin-top:6px">Prospects</h2></div><div class="kmt-btn-group"><button class="kmt-btn kmt-btn--secondary kmt-btn--icon kmt-btn--sm" aria-label="Filtrer">{{i:filter}}</button><button class="kmt-btn kmt-btn--sm"><span>Nouveau prospect</span><i>{{i:plus}}</i></button></div></div>
+            <div class="kmt-mosaic" style="grid-template-columns:repeat(3,1fr)"><div class="kmt-card kmt-kpi" style="border-radius:var(--kmt-radius-lg) var(--kmt-radius-sm) var(--kmt-radius-sm) var(--kmt-radius-lg)"><span class="kmt-label">Nouveaux</span><span class="kmt-kpi__value">42</span></div><div class="kmt-card kmt-kpi" style="border-radius:var(--kmt-radius-sm)"><span class="kmt-label">En négociation</span><span class="kmt-kpi__value">17</span></div><div class="kmt-card kmt-kpi" style="border-radius:var(--kmt-radius-sm) var(--kmt-radius-lg) var(--kmt-radius-lg) var(--kmt-radius-sm)"><span class="kmt-label">Signés</span><span class="kmt-kpi__value kmt-kpi__value--gold">9</span></div></div>
+            <div class="kmt-table-wrap"><table class="kmt-table"><thead><tr><th>Entreprise</th><th>Source</th><th>Étape</th><th style="text-align:right">Potentiel</th></tr></thead><tbody>
+              <tr><td>Teranga Logistique</td><td class="kmt-caption">openkmt.org</td><td><span class="kmt-badge kmt-badge--info kmt-badge--dot">Démo planifiée</span></td><td class="kmt-num">3 600 000</td></tr>
+              <tr><td>Akwaba Santé</td><td class="kmt-caption">chill @ build</td><td><span class="kmt-badge kmt-badge--success kmt-badge--dot">Signé</span></td><td class="kmt-num">1 900 000</td></tr>
+            </tbody></table></div>
+          </div>
+        </main>
+      </div></div>
+    </section>
+
+    <!-- ========== CLI ========== -->
+    <section class="sec" id="cli">
+      <div class="sec-head"><span class="kmt-eyebrow">14 — CLI &amp; terminal</span><h2 class="kmt-h1">Reconnaissable même en texte brut</h2>
+        <p class="kmt-lead">Bannière à 3 lignes qui redessine le symbole en blocs, invite en or, labels discrets, coches palmier. Palette de terminal fournie pour Ghostty, iTerm2, Windows Terminal et Alacritty.</p></div>
+      <div class="kmt-terminal"><div class="kmt-terminal__bar"><i></i><i></i><i></i><span style="margin-left:8px">zeno — deploy</span></div><pre><span class="p">█  ██</span>   <span class="b">zeno</span>
+<span class="p">█ ██ </span>   <span class="m">v2.4.0</span>
+<span class="p">█  ██</span>   <span class="m">openkmt.org</span>
+
+<span class="p">$</span> kmt deploy --zeno --client=teranga
+<span class="m">[1/3]</span> Build de l'image          <span class="ok">✓</span>
+<span class="m">[2/3]</span> Migrations (12)           <span class="ok">✓</span>
+<span class="m">[3/3]</span> Redémarrage Coolify       <span class="ok">✓</span>
+
+<span class="i">›</span> En ligne : <span class="b">crm.teranga.ci</span>  <span class="m">(41 s)</span></pre></div>
+      <div class="demo" style="margin-top:16px"><div class="demo__code" style="border-top:0">import { kmt } from '@kmt/design-system/cli'
+console.log(kmt.banner('zeno', '2.4.0'))
+console.log(kmt.step(1, 3, 'Build de l\'image'), kmt.ok(''))</div></div>
+    </section>
+
+    <!-- ========== DOCUMENTS ========== -->
+    <section class="sec" id="documents">
+      <div class="sec-head"><span class="kmt-eyebrow">15 — Documents officiels</span><h2 class="kmt-h1">Le papier, comme le code</h2>
+        <p class="kmt-lead">Même grille, mêmes polices, mêmes labels mono. Les modèles sont dans <code class="kmt-code">documents/</code> en HTML imprimable (A4) et en PDF, plus un papier à en-tête Word.</p></div>
+      <div class="g4">{{doccards}}</div>
+    </section>
+
+    <!-- ========== INTEGRATION ========== -->
+    <section class="sec" id="integration">
+      <div class="sec-head"><span class="kmt-eyebrow">16 — Intégration</span><h2 class="kmt-h1">Une source, tous les supports</h2>
+        <p class="kmt-lead"><code class="kmt-code">tokens/tokens.json</code> est la seule source. <code class="kmt-code">node scripts/build.mjs</code> régénère tout le reste.</p></div>
+      <div class="kmt-table-wrap"><table class="kmt-table"><thead><tr><th>Support</th><th>Fichier</th><th>Comment</th></tr></thead><tbody>
+        <tr><td><b>Web (tout projet)</b></td><td class="kmt-data" style="font-size:12px">dist/css/kmt-tokens.css + ui/kmt-ui.css</td><td class="kmt-text">Importer les deux, ajouter <code class="kmt-code">class="kmt"</code> sur body.</td></tr>
+        <tr><td><b>Zeno</b></td><td class="kmt-data" style="font-size:12px">dist/zeno/kmt.ts</td><td class="kmt-text">Remplace <code class="kmt-code">core/brands/src/brands/kmt.ts</code> : les 57 tokens du thème.</td></tr>
+        <tr><td><b>Zeno — documents</b></td><td class="kmt-data" style="font-size:12px">dist/documents/charte-kmt.json</td><td class="kmt-text">Charte des contrats et factures (module RH).</td></tr>
+        <tr><td><b>EDMS / site</b></td><td class="kmt-data" style="font-size:12px">dist/edms/theme.json</td><td class="kmt-text">Format <code class="kmt-code">@edms/theme</code>, importable aussi par Zeno.</td></tr>
+        <tr><td><b>Tailwind</b></td><td class="kmt-data" style="font-size:12px">dist/tailwind/</td><td class="kmt-text">Preset v3 ou <code class="kmt-code">@theme</code> v4.</td></tr>
+        <tr><td><b>CLI</b></td><td class="kmt-data" style="font-size:12px">dist/terminal/kmt-cli.mjs</td><td class="kmt-text">Bannière, couleurs, statuts. Zéro dépendance, respecte <code class="kmt-code">NO_COLOR</code>.</td></tr>
+        <tr><td><b>Terminal</b></td><td class="kmt-data" style="font-size:12px">dist/terminal/*</td><td class="kmt-text">Thèmes Ghostty, iTerm2, Windows Terminal, Alacritty.</td></tr>
+        <tr><td><b>Desktop (Electron/Tauri)</b></td><td class="kmt-data" style="font-size:12px">logo/png/kmt-icone-app-1024.png</td><td class="kmt-text">Icône d'app, mêmes CSS que le web.</td></tr>
+      </tbody></table></div>
+    </section>
+  </div>
+</div>
+<script>
+  document.querySelectorAll('[data-set]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.documentElement.setAttribute('data-theme', b.dataset.set);
+      document.querySelectorAll('[data-set]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    });
+  });
+</script>
+</body>
+</html>

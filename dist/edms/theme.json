@@ -1,0 +1,27 @@
+{
+  "name": "KMT",
+  "colors": {
+    "primary": "#C9993B",
+    "secondary": "#2E5A5C",
+    "accent": "#2E5A5C",
+    "background": "#F4EEE3",
+    "text": "#16130F",
+    "muted": "#5E574D",
+    "border": "#D8CFBD",
+    "onPrimary": "#16130F"
+  },
+  "typography": {
+    "heading": "Space Grotesk",
+    "body": "Manrope",
+    "mono": "JetBrains Mono"
+  },
+  "radius": {
+    "none": "0",
+    "sm": "3px",
+    "md": "6px",
+    "lg": "10px",
+    "pill": "999px",
+    "$description": "Rayons du symbole (7/146 du bloc) : des blocs à peine adoucis, jamais de pilule pour un bouton. pill est réservé aux pastilles de données."
+  },
+  "logo": "/brand/kmt-lockup-sur-clair.svg"
+}
