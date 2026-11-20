@@ -231,7 +231,25 @@
       "weight": 500,
       "leading": 1.2,
       "tracking": "0.14em",
-      "transform": "uppercase"
+      "transform": "uppercase",
+      "$description": "Surtitre éditorial (site, slides, documents). Pas pour les libellés d'interface produit."
+    },
+    "ui-label": {
+      "family": "body",
+      "size": "xs",
+      "weight": 500,
+      "leading": 1.35,
+      "tracking": "0",
+      "transform": "none",
+      "$description": "Libellé d'interface produit (champs, tuiles, colonnes) : Manrope, sans capitales."
+    },
+    "kpi": {
+      "family": "display",
+      "size": "3xl",
+      "weight": 600,
+      "leading": 1.1,
+      "tracking": "-0.02em",
+      "$description": "Chiffre clé d'une tuile ou d'une bande de KPI."
     },
     "data": {
       "family": "mono",

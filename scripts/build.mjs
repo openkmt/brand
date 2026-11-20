@@ -124,10 +124,11 @@ const fam = Object.fromEntries(Object.entries(T.font.family).map(([k, v]) => [k,
     '--h1-font': font(t.h1), '--h1-transform': 'none', '--h1-tracking': t.h1.tracking,
     '--h2-font': font(t.h2), '--h2-transform': 'none', '--h2-tracking': t.h2.tracking,
     '--h3-font': font(t.h3), '--h3-transform': 'none', '--h3-tracking': '0',
-    '--body-lg-font': font(t['body-lg']), '--body-font': font(t.body), '--caption-font': font(t.caption), '--kpi-font': font(t.data),
+    '--body-lg-font': font(t['body-lg']), '--body-font': font(t.body), '--caption-font': font(t.caption), '--kpi-font': font(t.kpi),
     '--text-secondary': c['text-secondary'], '--text-muted': c['text-muted'], '--surface-subtle': c['bg-subtle'], '--border-strong': c['bg-field-hover'],
     '--shadow-raised': T.shadow.raised, '--shadow-overlay': T.shadow.overlay, '--tone-neutral': c.neutral, '--tone-neutral-soft': c['neutral-soft'],
-    '--font-label': 'var(--font-mono)', '--label-weight': '500', '--label-transform': 'uppercase', '--label-tracking': T.font.tracking.label,
+    // Libellés d'interface en Manrope sans capitales ; le mono reste aux montants et au code (--font-data).
+    '--font-label': 'var(--font-body)', '--label-weight': String(t['ui-label'].weight), '--label-transform': t['ui-label'].transform, '--label-tracking': t['ui-label'].tracking,
     '--title-cursor': 'none', '--font-data': 'var(--font-mono)',
   }
   const q = (s) => (String(s).includes("'") ? JSON.stringify(String(s)) : `'${s}'`)

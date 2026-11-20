@@ -39,7 +39,7 @@ design-system/
 - **Nom** : on écrit toujours **KMT**, avec le sigle, jamais le nom en toutes lettres : textes, documents, interfaces et code.
 - **Couleurs** : Papyrus `#F4EEE3` 55 % · Noir KMT `#16130F` 22 % · Sable `#D8CFBD` 10 % · Or Solaire `#C9993B` 8 % · Nil `#2E5A5C` 5 %.
 - **L'or ne se lit jamais sur fond clair** (2,2:1). Sur papyrus, un texte « or » utilise `--kmt-text-gold` (or 700, 4,8:1). L'or plein sert pour le symbole, les fonds de bouton (texte noir), les chiffres sur noir.
-- **Typo** : Space Grotesk (titres), Manrope (texte, UI), JetBrains Mono (labels en capitales espacées, code, montants).
+- **Typo** : Space Grotesk (titres, chiffres clés), Manrope (texte, UI, libellés d'interface), JetBrains Mono (montants, code, et surtitres éditoriaux en capitales espacées sur le site et les documents).
 - **Sans traits** : ni cadres, ni filets, ni soulignés, ni boutons à contour. La mise en page structure déjà : l'espace sépare, un fond (`--kmt-bg-field`, `--kmt-bg-card`) regroupe, la typo hiérarchise. Les ombres sont réservées à ce qui flotte (menus, modales, toasts). Les champs de formulaire sont inline (`.kmt-inline`) : ils ressemblent à du texte et ne montrent un fond qu'au survol et au focus.
 - **La grammaire des blocs** : l'interface parle la langue du symbole, une colonne et des modules.
   - *Blocs* : rayons 3 · 6 · 10 px, jamais de pilule pour un bouton.
@@ -64,7 +64,7 @@ design-system/
 Ou, en dépendance : `"@kmt/design-system": "github:openkmt/brand#main"` (voir « Suite » ci-dessous), puis `import '@kmt/design-system/css'`.
 
 ### Zeno (`zeno-kmt`)
-1. Remplacer `core/brands/src/brands/kmt.ts` par `dist/zeno/kmt.ts`. Il couvre les 57 tokens du contrat `BRAND_TOKENS` (vérifié) : titres Space Grotesk sans majuscules, labels mono, rayons 4/8/16/pill, plus de curseur `_`, et le parti pris « sans traits » (`--border-subtle` transparent, `--border-default` réduit à un fond très léger, pas d'ombre de carte). Attention : certains composants de `core/ui-kit` dessinent leurs bordures en dur ; il faudra une passe sur le kit pour un rendu entièrement sans traits.
+1. Remplacer `core/brands/src/brands/kmt.ts` par `dist/zeno/kmt.ts`. Il couvre les 57 tokens du contrat `BRAND_TOKENS` (vérifié) : titres Space Grotesk sans majuscules, libellés d'interface en Manrope sans capitales, chiffres clés en Space Grotesk 28 px, montants en mono, rayons 4/8/16/pill, plus de curseur `_`, et le parti pris « sans traits » (`--border-subtle` transparent, `--border-default` réduit à un fond très léger, pas d'ombre de carte). Attention : certains composants de `core/ui-kit` dessinent leurs bordures en dur ; il faudra une passe sur le kit pour un rendu entièrement sans traits.
 2. Charger les polices : `pnpm add @fontsource/space-grotesk @fontsource/manrope @fontsource/jetbrains-mono` dans `apps/web`. Le module RH les a déjà côté PDF.
 3. Lancer les tests `core/brands` : `THEME_CONTRAST_PAIRS` vérifie les contrastes. Les rôles ont été calculés AA (≥ 4,5:1).
 4. Documents : `dist/documents/charte-kmt.json` correspond au `CharteSchema` de `modules/rh/api/src/charte.ts`. Les logos PNG du module se régénèrent depuis `logo/png/`.
