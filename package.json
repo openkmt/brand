@@ -1,6 +1,6 @@
 {
   "name": "@kmt/design-system",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Design system KMT — tokens, composants UI, logos, documents officiels. Source unique : tokens/tokens.json.",
   "license": "MIT",
   "type": "module",
@@ -17,6 +17,7 @@
     "./css": "./dist/css/kmt-tokens.css",
     "./ui.css": "./ui/kmt-ui.css",
     "./fonts.css": "./fonts/kmt-fonts.css",
+    "./fonts/*": "./fonts/*",
     "./tailwind": "./dist/tailwind/kmt-preset.cjs",
     "./tailwind.css": "./dist/tailwind/kmt-theme.css",
     "./cli": "./dist/terminal/kmt-cli.mjs",
