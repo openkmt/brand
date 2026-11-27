@@ -13,7 +13,7 @@ Tu travailles sur un produit KMT (Zeno, EDMS ou DevPanel). Ce dossier contient l
    - le joint `--kmt-joint` (3 px) sépare les modules : boutons, onglets, lignes de tableau, jauges, mosaïques de KPI ;
    - l'or marque uniquement l'élément actif : entrée de menu, page courante, étape en cours, focus d'un champ.
 5. **Couleurs** : Papyrus 55 %, Noir KMT 22 %, Sable 10 %, Or 8 %, Nil 5 %. L'or ne sert jamais de couleur de texte sur fond clair : utilise `--kmt-text-gold` (contraste 4,8:1). Tous les rôles sémantiques sont calculés AA, et il ne faut pas en introduire de nouveaux sans vérifier le contraste.
-6. **Typo** : Space Grotesk pour les titres, Manrope pour le texte et l'UI, JetBrains Mono pour les labels en capitales espacées, les montants et le code. Les polices sont auto-hébergées : utilise `fonts/` ou les paquets `@fontsource`.
+6. **Typo** : Space Grotesk pour les titres et les chiffres clés, Manrope pour le texte, l'UI et les libellés d'interface (`type.ui-label`, sans capitales), JetBrains Mono pour les montants, le code et les surtitres éditoriaux en capitales espacées (`type.label`, site et documents seulement). Les polices sont auto-hébergées : utilise `fonts/` ou les paquets `@fontsource`.
 7. **Icônes** : Lucide, trait 1,5, grille 24, jamais remplies.
 8. **Wording** : écris « entreprises », pas « campus ». Zeno est multi-secteur.
 
