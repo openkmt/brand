@@ -28,7 +28,7 @@ design-system/
 ├── logo/
 │   ├── svg/                  symbole (or, noir, papyrus), lockups clair/sombre/mono, icône app, favicon
 │   └── png/                  exports 128/512, icône app 192/512/1024, apple-touch-icon, favicon.ico
-├── fonts/                    Space Grotesk, Manrope, JetBrains Mono (woff2, OFL) + kmt-fonts.css
+├── fonts/                    Space Grotesk, Manrope, JetBrains Mono (woff2 + woff pour les PDF, OFL) + kmt-fonts.css
 ├── docs/index.html           site de documentation (généré depuis docs/src/)
 ├── AGENTS.md                 brief pour les agents qui intègrent le système dans Zeno, EDMS, DevPanel
 └── scripts/                  build.mjs, build_docs.py, icons.py
