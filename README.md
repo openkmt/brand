@@ -84,6 +84,18 @@ Zéro dépendance, truecolor, et respecte `NO_COLOR`. Les thèmes de terminal de
 ### Desktop (Electron / Tauri)
 Même CSS que le web. Icône : `logo/png/kmt-icone-app-1024.png` (générer `.icns`/`.ico` depuis ce fichier).
 
+## Paquet `marque/v1`
+
+Le format `marque/v1` (validation, normalisation, contrastes, polices, templates) vit ici, dans `marque/`. Zéro dépendance, ESM pur, sans build : il s'importe depuis `marque/src/` tel quel.
+
+```js
+import { valider, normaliser, verifierContraste, LOGOS } from '@kmt/design-system/marque'
+```
+
+- Origine : `packages/marque/` de `openkmt/edms` au commit `55281ef334c332a7a3101da7b9284e86f5b2a150`, copié sans modification (`marque/src/` et `marque/test/`).
+- Licence : MIT, Fondation KMT (`marque/LICENCE`).
+- Tests : `npm run test:marque`.
+
 ## Modifier le système
 
 ```bash
