@@ -1,6 +1,6 @@
 {
   "name": "@kmt/design-system",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Design system KMT — tokens, composants UI, logos, documents officiels. Source unique : tokens/tokens.json.",
   "license": "MIT",
   "type": "module",
@@ -9,7 +9,9 @@
     "ui",
     "fonts",
     "logo",
-    "tokens"
+    "tokens",
+    "marque/src",
+    "marque/LICENCE"
   ],
   "exports": {
     ".": "./dist/js/kmt-tokens.mjs",
@@ -22,10 +24,15 @@
     "./tailwind.css": "./dist/tailwind/kmt-theme.css",
     "./cli": "./dist/terminal/kmt-cli.mjs",
     "./edms-theme.json": "./dist/edms/theme.json",
+    "./marque": {
+      "types": "./marque/src/index.d.ts",
+      "default": "./marque/src/index.js"
+    },
     "./logo/*": "./logo/*"
   },
   "scripts": {
     "build": "node scripts/build.mjs",
-    "build:docs": "python3 scripts/build_docs.py"
+    "build:docs": "python3 scripts/build_docs.py",
+    "test:marque": "node --test marque/test/"
   }
 }
